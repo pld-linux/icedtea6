@@ -66,6 +66,8 @@ projektu GNU Classpath.
 
 %prep
 %setup -q
+
+# let the build system extract the sources where it wants them
 mkdir drops
 ln -s %{SOURCE1} .
 ln -s %{SOURCE2} drops
@@ -84,13 +86,19 @@ unset JAVA_HOME || :
 	--with-rhino=%{_javadir}/js.jar \
 	--disable-plugin
 
+%{__make} extract extract-ecj
+
+# Cannot do that as patch, as the sources are prepared by make
+%{__sed} -i -e's/CORBA_BUILD_ARGUMENTS = \\/CORBA_BUILD_ARGUMENTS = JVMLIB="" \\/' openjdk-ecj/make/corba-rules.gmk
+
 %{__make} -j1 \
-	SHELL=/bin/bash
+	PRINTF=/bin/printf
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
+	PRINTF=/bin/printf \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
