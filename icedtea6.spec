@@ -1,4 +1,7 @@
 #
+%bcond_without bootstrap	# don't use gcj, use an installed icedtea6
+				# instead
+#
 # class data version seen with file(1) that this jvm is able to load
 %define		_classdataversion 50.0
 # JDK/JRE version, as returned with `java -version`, '_' replaced with '.'
@@ -24,16 +27,17 @@ Source4:	https://jaxp.dev.java.net/files/documents/913/147329/jdk6-jaxp-2009_10_
 # Source4-md5:	a2f7b972124cd776ff71e7754eb9a429
 URL:		http://icedtea.classpath.org/wiki/Main_Page
 BuildRequires:	alsa-lib-devel
+%{!?with_bootstrap:BuildRequires:	ant}
 BuildRequires:	bash
 BuildRequires:	cups-devel
-# BuildRequires:	eclipse-ecj
 BuildRequires:	freetype-devel >= 2.3
-BuildRequires:	gcc-java >= 6:4.3
+%{?with_bootstrap:BuildRequires:	gcc-java >= 6:4.3}
 BuildRequires:	giflib-devel
 BuildRequires:	glib2-devel
 BuildRequires:	gtk+2-devel
-#BuildRequires:	gdk-pixbuf-devel
-BuildRequires:	java-gcj-compat-devel-base
+%{!?with_bootstrap:BuildRequires:	icedtea6-jdk-base}
+%{?with_bootstrap:BuildRequires:	java-gcj-compat-devel-base}
+BuildRequires:	libffi-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
@@ -231,12 +235,15 @@ ln -s %{SOURCE3} drops
 ln -s %{SOURCE4} drops
 
 %build
-unset JAVA_HOME || :
+JAVA_HOME=%{_jvmdir}/icedtea6
 %configure \
+%if %{with bootstrap}
 	--with-gcj-home=%{_gcj_home} \
-	--with-ecj=%{_bindir}/ecj \
-	--with-ecj-jar=%{_javadir}/ecj.jar \
 	--with-libgcj-jar=%{_javadir}/libgcj.jar \
+	--with-ecj-jar=%{_javadir}/ecj.jar \
+%else
+	--with-openjdk=%{_jvmdir}/icedtea6 \
+%endif
 	--with-xalan2-jar=%{_javadir}/xalan.jar \
 	--with-xalan2-serializer-jar=%{_javadir}/serializer.jar \
 	--with-rhino=%{_javadir}/js.jar \
@@ -244,8 +251,10 @@ unset JAVA_HOME || :
 
 %{__make} extract extract-ecj
 
+%if %{with bootstrap}
 # Cannot do that as patch, as the sources are prepared by make
 %{__sed} -i -e's/CORBA_BUILD_ARGUMENTS = \\/CORBA_BUILD_ARGUMENTS = JVMLIB="" \\/' openjdk-ecj/make/corba-rules.gmk
+%endif
 
 %{__make} -j1 \
 	PRINTF=/bin/printf
