@@ -10,7 +10,7 @@
 +      JRE_ARCH_DIR=i386
 +      ARCH_PREFIX=${LINUX32}
 +      CROSS_TARGET_ARCH=i386
-+      ARCHFLAG="-m32"
++      ARCHFLAG="-m32 -march=i486"
 +      ;;
      i?86)
        BUILD_ARCH_DIR=i586
