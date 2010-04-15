@@ -69,7 +69,7 @@ Obsoletes:	java-sun-tools
 Obsoletes:	java-sun-jre 
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define _gcj_home /usr/lib/java/java-1.5.0-gcj-1.5.0.0
+%define _gcj_home /usr/%{_lib}/java/java-1.5.0-gcj-1.5.0.0
 
 %define		dstreldir	%{name}-%{version}
 %define		dstdir		%{_jvmdir}/%{dstreldir}
