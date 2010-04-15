@@ -247,7 +247,7 @@ ln -s %{SOURCE3} drops
 ln -s %{SOURCE4} drops
 
 %build
-JAVA_HOME=%{_jvmdir}/icedtea6
+unset JAVA_HOME || :
 %configure \
 %if %{with bootstrap}
 	--with-gcj-home=%{_gcj_home} \
