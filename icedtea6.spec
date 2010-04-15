@@ -43,8 +43,8 @@ BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	motif-devel
 BuildRequires:	nss-devel
-BuildRequires:	rhino
 BuildRequires:	unzip
+BuildRequires:	java-rhino
 BuildRequires:	java-xalan
 BuildRequires:	java-xerces
 BuildRequires:	xorg-lib-libX11-devel
