@@ -236,6 +236,21 @@ Group:		Development/Languages/Java
 Code examples OpenJDK runtime environment compiled using IcedTea6
 tool-set.
 
+%package -n browser-plugin-java-%{name}
+Summary:	IceTea Java plugin for WWW browsers
+Summary(pl.UTF-8):	Wtyczka Javy do przeglądarek WWW
+Group:		Development/Languages/Java
+Requires:	%{name}-jre-X11 = %{version}-%{release}
+Requires:	browser-plugins >= 2.0
+Requires:	browser-plugins(%{_target_base_arch})
+
+%description -n browser-plugin-java-%{name}
+Java plugin for WWW browsers.
+
+%description -n browser-plugin-java-%{name} -l pl.UTF-8
+Wtyczka z obsługą Javy dla przeglądarek WWW.
+
+
 %prep
 %setup -q
 
@@ -319,6 +334,14 @@ for f in jndi jndi-ldap jndi-cos jndi-rmi jaas jdbc-stdext jdbc-stdext-3.0 \
 done
 
 rm -f $RPM_BUILD_ROOT%{dstdir}/{,jre/}{ASSEMBLY_EXCEPTION,LICENSE,THIRD_PARTY_README}
+
+%post -n browser-plugin-java-%{name}
+%update_browser_plugins
+
+%postun -n browser-plugin-java-%{name}
+if [ "$1" = 0 ]; then
+	%update_browser_plugins
+fi
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -648,3 +671,11 @@ rm -rf $RPM_BUILD_ROOT
 %files examples
 %defattr(644,root,root,755)
 %{_prefix}/src/%{name}-examples
+
+%if %{with plugin}
+%files -n browser-plugin-java-%{name}
+%attr(755,root,root) %{_bindir}/pluginappletviewer
+%attr(755,root,root) %{dstdir}/bin/pluginappletviewer
+%attr(755,root,root) %{jredir}/bin/pluginappletviewer
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/IcedTeaPlugin.so
+%endif
