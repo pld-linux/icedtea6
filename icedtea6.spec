@@ -4,8 +4,8 @@
 #
 # class data version seen with file(1) that this jvm is able to load
 %define		_classdataversion 50.0
-# JDK/JRE version, as returned with `java -version`, '_' replaced with '.'
 %define		_jdkversion 1.6.0.18
+# JDK/JRE version, as returned with `java -version`, '_' replaced with '.'
 #
 Summary:	OpenJDK and GNU Classpath code
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath
@@ -37,6 +37,9 @@ BuildRequires:	glib2-devel
 BuildRequires:	gtk+2-devel
 %{!?with_bootstrap:BuildRequires:	icedtea6-jdk-base}
 %{?with_bootstrap:BuildRequires:	java-gcj-compat-devel-base}
+BuildRequires:	java-rhino
+BuildRequires:	java-xalan
+BuildRequires:	java-xerces
 BuildRequires:	libffi-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
@@ -44,9 +47,6 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	motif-devel
 BuildRequires:	nss-devel
 BuildRequires:	unzip
-BuildRequires:	java-rhino
-BuildRequires:	java-xalan
-BuildRequires:	java-xerces
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXp-devel
@@ -55,11 +55,11 @@ BuildRequires:	xorg-lib-libXtst-devel
 BuildRequires:	xorg-proto-printproto-devel
 BuildRequires:	xorg-proto-xproto-devel
 #BuildRequires:	xulrunner-devel
-BuildRequires:	zlib-devel
 BuildRequires:	zip
-Requires:	%{name}-jdk = %{version}-%{release}
-Requires:	%{name}-jar = %{version}-%{release}
+BuildRequires:	zlib-devel
 Requires:	%{name}-appletviewer = %{version}-%{release}
+Requires:	%{name}-jar = %{version}-%{release}
+Requires:	%{name}-jdk = %{version}-%{release}
 Obsoletes:	java-gcj-compat
 Obsoletes:	java-gcj-compat-devel
 Obsoletes:	java-sun
@@ -70,7 +70,7 @@ Obsoletes:	java-sun-jre-jdbc
 Obsoletes:	java-sun-sources
 Obsoletes:	java-sun-tools
 # redudant with the same in %{name}-jre, but seems needed for clean java-sun replacement
-Obsoletes:	java-sun-jre 
+Obsoletes:	java-sun-jre
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define _gcj_home /usr/%{_lib}/java/java-1.5.0-gcj-1.5.0.0
@@ -87,9 +87,9 @@ http://openjdk.java.net/ using Free Software build tools and provides
 replacements libraries for the binary plugs with code from the GNU
 Classpath project.
 
-This is a meta-package which provides, by its dependencies, all the IcedTea6
-components including the OpenJDK, Java 6 developement kit and runtime
-environment.
+This is a meta-package which provides, by its dependencies, all the
+IcedTea6 components including the OpenJDK, Java 6 developement kit and
+runtime environment.
 
 %description -l pl.UTF-8
 Projekt IcedTea daje możliwość kompilacji kodu źródłowego z
@@ -98,15 +98,15 @@ dostarcza zamienniki biblioteczne binarnych wtyczek pochodzące z
 projektu GNU Classpath.
 
 To jest meta-pakiet, który, za pośrednictwem zależności, dostarcza
-wszystkie komponenty IcedTea6, w tym środowisko programistyczne 
+wszystkie komponenty IcedTea6, w tym środowisko programistyczne
 (OpenJDK) i uruchomieniowe (JRE).
 
 %package jdk
 Summary:	OpenJDK and GNU Classpath code - software developement kit
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - środowisko programistyczne
 Group:		Development/Languages/Java
-Requires:	%{name}-jre = %{version}-%{release}
 Requires:	%{name}-jdk-base = %{version}-%{release}
+Requires:	%{name}-jre = %{version}-%{release}
 Provides:	j2sdk = %{_jdkversion}
 Provides:	jdk = %{_jdkversion}
 Obsoletes:	blackdown-java-sdk
@@ -149,8 +149,8 @@ OpenJDK runtime environment compiled using IcedTea6 tool-set.
 Summary:	OpenJDK and GNU Classpath code - runtime environment
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - środowisko uruchomieniowe
 Group:		Development/Languages/Java
-Provides:	java(ClassDataVersion) = %{_classdataversion}
 Requires:	jpackage-utils >= 0:1.6.6-14
+Provides:	java(ClassDataVersion) = %{_classdataversion}
 
 %description jre-base
 OpenJDK runtime environment compiled using IcedTea6 tool-set.
@@ -163,7 +163,8 @@ Requires:	%{name}-jre-base = %{version}-%{release}
 Requires:	%{name}-jre-freetype = %{version}-%{release}
 
 %description jre-X11
-X11 support for OpenJDK runtime environment compiled using IcedTea6 tool-set.
+X11 support for OpenJDK runtime environment compiled using IcedTea6
+tool-set.
 
 %package jre-alsa
 Summary:	IcedTea6 OpenJDK - runtime environment - ALSA support
@@ -172,7 +173,8 @@ Group:		Development/Languages/Java
 Requires:	%{name}-jre-base = %{version}-%{release}
 
 %description jre-alsa
-ALSA sound support for OpenJDK runtime environment compiled using IcedTea6 tool-set.
+ALSA sound support for OpenJDK runtime environment compiled using
+IcedTea6 tool-set.
 
 %package jre-freetype
 Summary:	IcedTea6 OpenJDK - runtime environment - font support
@@ -181,16 +183,17 @@ Group:		Development/Languages/Java
 Requires:	%{name}-jre-base = %{version}-%{release}
 
 %description jre-freetype
-Font handling library for OpenJDK runtime environment compiled using IcedTea6 tool-set.
+Font handling library for OpenJDK runtime environment compiled using
+IcedTea6 tool-set.
 
 %package jar
 Summary:	OpenJDK and GNU Classpath code - JAR tool
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - narzędzie JAR
+Group:		Development/Languages/Java
 Requires:	%{name}-jdk-base = %{version}-%{release}
 Provides:	jar
-Obsoletes:	jar
 Obsoletes:	fastjar
-Group:		Development/Languages/Java
+Obsoletes:	jar
 
 %description jar
 JAR tool from OpenJDK compiled using IcedTea6 tool-set.
@@ -200,12 +203,12 @@ JAR is an archiver used to merge Java classes into a single library.
 %package appletviewer
 Summary:	OpenJDK and GNU Classpath code - appletviewer tool
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - narzędzie appletviewer
+Group:		Development/Languages/Java
 Requires:	%{name}-jdk-base = %{version}-%{release}
 Requires:	%{name}-jre-X11 = %{version}-%{release}
 Obsoletes:	java-sun-appletviewer
-Group:		Development/Languages/Java
 
-%description appletviewer 
+%description appletviewer
 Appletviewer from OpenJDK compiled using IcedTea6 tool-set.
 
 %package jdk-sources
@@ -222,7 +225,8 @@ Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - przykłady
 Group:		Development/Languages/Java
 
 %description examples
-Code examples OpenJDK runtime environment compiled using IcedTea6 tool-set.
+Code examples OpenJDK runtime environment compiled using IcedTea6
+tool-set.
 
 %prep
 %setup -q
@@ -271,7 +275,7 @@ cp -R openjdk/build/linux-*/j2sdk-image/* $RPM_BUILD_ROOT%{dstdir}
 ln -s %{dstreldir} $RPM_BUILD_ROOT%{_jvmdir}/%{name}
 ln -s %{jrereldir} $RPM_BUILD_ROOT%{_jvmdir}/%{name}-jre
 
-# move JDK sources and demo to /usr/src
+# move JDK sources and demo to %{_prefix}/src
 mv $RPM_BUILD_ROOT%{dstdir}/demo $RPM_BUILD_ROOT%{_prefix}/src/%{name}-examples/
 mv $RPM_BUILD_ROOT%{dstdir}/sample $RPM_BUILD_ROOT%{_prefix}/src/%{name}-examples/
 mv $RPM_BUILD_ROOT%{dstdir}/src.zip $RPM_BUILD_ROOT%{_prefix}/src/%{name}-jdk-sources/
