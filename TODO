@@ -1,4 +1,6 @@
 - better descriptions
 - Polish descriptions for subpackages
 - browser plugin
-- check and improve jre Provides (though the APIs should be java-* or java(*), not like in current java-sun-jre)
+- Java WebStart on x86_64
+- check and improve jre Provides (though the APIs should be java-* or java(*),
+  not like in current java-sun-jre)

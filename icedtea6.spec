@@ -424,7 +424,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{dstdir}/bin/javadoc
 %attr(755,root,root) %{dstdir}/bin/javah
 %attr(755,root,root) %{dstdir}/bin/javap
+%ifnarch x86_64
 %attr(755,root,root) %{dstdir}/bin/javaws
+%endif
 %attr(755,root,root) %{dstdir}/bin/jconsole
 %attr(755,root,root) %{dstdir}/bin/jdb
 %attr(755,root,root) %{dstdir}/bin/jhat
@@ -466,7 +468,9 @@ rm -rf $RPM_BUILD_ROOT
 %files jre
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/java
+%ifnarch x86_64
 %attr(755,root,root) %{_bindir}/javaws
+%endif
 %attr(755,root,root) %{_bindir}/keytool
 %attr(755,root,root) %{_bindir}/orbd
 %attr(755,root,root) %{_bindir}/pack200
@@ -477,7 +481,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/tnameserv
 %attr(755,root,root) %{_bindir}/unpack200
 %{_mandir}/man1/java.*
+%ifnarch x86_64
 %{_mandir}/man1/javaws.*
+%endif
 %{_mandir}/man1/keytool.*
 %{_mandir}/man1/orbd.*
 %{_mandir}/man1/pack200.*
@@ -488,7 +494,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/tnameserv.*
 %{_mandir}/man1/unpack200.*
 %lang(ja) %{_mandir}/ja/man1/java.*
+%ifnarch x86_64
 %lang(ja) %{_mandir}/ja/man1/javaws.*
+%endif
 %lang(ja) %{_mandir}/ja/man1/keytool.*
 %lang(ja) %{_mandir}/ja/man1/orbd.*
 %lang(ja) %{_mandir}/ja/man1/pack200.*
@@ -508,7 +516,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_jvmdir}/%{name}-jre
 %dir %{jredir}/bin
 %attr(755,root,root) %{jredir}/bin/java
+%ifnarch x86_64
 %attr(755,root,root) %{jredir}/bin/javaws
+%endif
 %attr(755,root,root) %{jredir}/bin/keytool
 %attr(755,root,root) %{jredir}/bin/orbd
 %attr(755,root,root) %{jredir}/bin/pack200
