@@ -1,6 +1,7 @@
 #
 %bcond_without bootstrap	# don't use gcj, use an installed icedtea6
 				# instead
+%bcond_without plugin		# don't build browser plugin
 #
 # class data version seen with file(1) that this jvm is able to load
 %define		_classdataversion 50.0
@@ -55,7 +56,7 @@ BuildRequires:	xorg-lib-libXt-devel
 BuildRequires:	xorg-lib-libXtst-devel
 BuildRequires:	xorg-proto-printproto-devel
 BuildRequires:	xorg-proto-xproto-devel
-#BuildRequires:	xulrunner-devel
+%{?with_plugin:BuildRequires:	xulrunner-devel}
 BuildRequires:	zip
 BuildRequires:	zlib-devel
 Requires:	%{name}-appletviewer = %{version}-%{release}
@@ -255,10 +256,14 @@ JAVA_HOME=%{_jvmdir}/icedtea6
 %else
 	--with-openjdk=%{_jvmdir}/icedtea6 \
 %endif
+%if %{with plugin}
+	--enable-plugin \
+%else
+	--disable-plugin \
+%endif
 	--with-xalan2-jar=%{_javadir}/xalan.jar \
 	--with-xalan2-serializer-jar=%{_javadir}/serializer.jar \
-	--with-rhino=%{_javadir}/js.jar \
-	--disable-plugin
+	--with-rhino=%{_javadir}/js.jar
 
 %{__make} extract extract-ecj
 
