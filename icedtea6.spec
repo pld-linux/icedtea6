@@ -28,6 +28,7 @@ Source4:	https://jaxp.dev.java.net/files/documents/913/147329/jdk6-jaxp-2009_10_
 URL:		http://icedtea.classpath.org/wiki/Main_Page
 BuildRequires:	alsa-lib-devel
 %{!?with_bootstrap:BuildRequires:	ant}
+%{!?with_bootstrap:BuildRequires:	ant-nodeps}
 BuildRequires:	bash
 BuildRequires:	cups-devel
 BuildRequires:	freetype-devel >= 2.3
@@ -625,5 +626,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %files examples
 %defattr(644,root,root,755)
-%dir %{_prefix}/src/%{name}-examples
 %{_prefix}/src/%{name}-examples
