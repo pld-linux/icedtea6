@@ -469,58 +469,58 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/wsgen
 %attr(755,root,root) %{_bindir}/wsimport
 %attr(755,root,root) %{_bindir}/xjc
-%{_mandir}/man1/apt.*
-%{_mandir}/man1/extcheck.*
-%{_mandir}/man1/idlj.*
-%{_mandir}/man1/jarsigner.*
-%{_mandir}/man1/javac.*
-%{_mandir}/man1/javadoc.*
-%{_mandir}/man1/javah.*
-%{_mandir}/man1/javap.*
-%{_mandir}/man1/jconsole.*
-%{_mandir}/man1/jdb.*
-%{_mandir}/man1/jhat.*
-%{_mandir}/man1/jinfo.*
-%{_mandir}/man1/jmap.*
-%{_mandir}/man1/jps.*
-%{_mandir}/man1/jrunscript.*
-%{_mandir}/man1/jsadebugd.*
-%{_mandir}/man1/jstack.*
-%{_mandir}/man1/jstat.*
-%{_mandir}/man1/jstatd.*
-%{_mandir}/man1/native2ascii.*
-%{_mandir}/man1/schemagen.*
-%{_mandir}/man1/serialver.*
-%{_mandir}/man1/rmic.*
-%{_mandir}/man1/wsgen.*
-%{_mandir}/man1/wsimport.*
-%{_mandir}/man1/xjc.*
-%lang(ja) %{_mandir}/ja/man1/apt.*
-%lang(ja) %{_mandir}/ja/man1/extcheck.*
-%lang(ja) %{_mandir}/ja/man1/idlj.*
-%lang(ja) %{_mandir}/ja/man1/jarsigner.*
-%lang(ja) %{_mandir}/ja/man1/javac.*
-%lang(ja) %{_mandir}/ja/man1/javadoc.*
-%lang(ja) %{_mandir}/ja/man1/javah.*
-%lang(ja) %{_mandir}/ja/man1/javap.*
-%lang(ja) %{_mandir}/ja/man1/jconsole.*
-%lang(ja) %{_mandir}/ja/man1/jdb.*
-%lang(ja) %{_mandir}/ja/man1/jhat.*
-%lang(ja) %{_mandir}/ja/man1/jinfo.*
-%lang(ja) %{_mandir}/ja/man1/jmap.*
-%lang(ja) %{_mandir}/ja/man1/jps.*
-%lang(ja) %{_mandir}/ja/man1/jrunscript.*
-%lang(ja) %{_mandir}/ja/man1/jsadebugd.*
-%lang(ja) %{_mandir}/ja/man1/jstack.*
-%lang(ja) %{_mandir}/ja/man1/jstat.*
-%lang(ja) %{_mandir}/ja/man1/jstatd.*
-%lang(ja) %{_mandir}/ja/man1/native2ascii.*
-%lang(ja) %{_mandir}/ja/man1/schemagen.*
-%lang(ja) %{_mandir}/ja/man1/serialver.*
-%lang(ja) %{_mandir}/ja/man1/rmic.*
-%lang(ja) %{_mandir}/ja/man1/wsgen.*
-%lang(ja) %{_mandir}/ja/man1/wsimport.*
-%lang(ja) %{_mandir}/ja/man1/xjc.*
+%{_mandir}/man1/apt.1*
+%{_mandir}/man1/extcheck.1*
+%{_mandir}/man1/idlj.1*
+%{_mandir}/man1/jarsigner.1*
+%{_mandir}/man1/javac.1*
+%{_mandir}/man1/javadoc.1*
+%{_mandir}/man1/javah.1*
+%{_mandir}/man1/javap.1*
+%{_mandir}/man1/jconsole.1*
+%{_mandir}/man1/jdb.1*
+%{_mandir}/man1/jhat.1*
+%{_mandir}/man1/jinfo.1*
+%{_mandir}/man1/jmap.1*
+%{_mandir}/man1/jps.1*
+%{_mandir}/man1/jrunscript.1*
+%{_mandir}/man1/jsadebugd.1*
+%{_mandir}/man1/jstack.1*
+%{_mandir}/man1/jstat.1*
+%{_mandir}/man1/jstatd.1*
+%{_mandir}/man1/native2ascii.1*
+%{_mandir}/man1/schemagen.1*
+%{_mandir}/man1/serialver.1*
+%{_mandir}/man1/rmic.1*
+%{_mandir}/man1/wsgen.1*
+%{_mandir}/man1/wsimport.1*
+%{_mandir}/man1/xjc.1*
+%lang(ja) %{_mandir}/ja/man1/apt.1*
+%lang(ja) %{_mandir}/ja/man1/extcheck.1*
+%lang(ja) %{_mandir}/ja/man1/idlj.1*
+%lang(ja) %{_mandir}/ja/man1/jarsigner.1*
+%lang(ja) %{_mandir}/ja/man1/javac.1*
+%lang(ja) %{_mandir}/ja/man1/javadoc.1*
+%lang(ja) %{_mandir}/ja/man1/javah.1*
+%lang(ja) %{_mandir}/ja/man1/javap.1*
+%lang(ja) %{_mandir}/ja/man1/jconsole.1*
+%lang(ja) %{_mandir}/ja/man1/jdb.1*
+%lang(ja) %{_mandir}/ja/man1/jhat.1*
+%lang(ja) %{_mandir}/ja/man1/jinfo.1*
+%lang(ja) %{_mandir}/ja/man1/jmap.1*
+%lang(ja) %{_mandir}/ja/man1/jps.1*
+%lang(ja) %{_mandir}/ja/man1/jrunscript.1*
+%lang(ja) %{_mandir}/ja/man1/jsadebugd.1*
+%lang(ja) %{_mandir}/ja/man1/jstack.1*
+%lang(ja) %{_mandir}/ja/man1/jstat.1*
+%lang(ja) %{_mandir}/ja/man1/jstatd.1*
+%lang(ja) %{_mandir}/ja/man1/native2ascii.1*
+%lang(ja) %{_mandir}/ja/man1/schemagen.1*
+%lang(ja) %{_mandir}/ja/man1/serialver.1*
+%lang(ja) %{_mandir}/ja/man1/rmic.1*
+%lang(ja) %{_mandir}/ja/man1/wsgen.1*
+%lang(ja) %{_mandir}/ja/man1/wsimport.1*
+%lang(ja) %{_mandir}/ja/man1/xjc.1*
 
 %files jdk-base
 %defattr(644,root,root,755)
@@ -587,32 +587,32 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/servertool
 %attr(755,root,root) %{_bindir}/tnameserv
 %attr(755,root,root) %{_bindir}/unpack200
-%{_mandir}/man1/java.*
+%{_mandir}/man1/java.1*
 %ifnarch x86_64
-%{_mandir}/man1/javaws.*
+%{_mandir}/man1/javaws.1*
 %endif
-%{_mandir}/man1/keytool.*
-%{_mandir}/man1/orbd.*
-%{_mandir}/man1/pack200.*
-%{_mandir}/man1/policytool.*
-%{_mandir}/man1/rmid.*
-%{_mandir}/man1/rmiregistry.*
-%{_mandir}/man1/servertool.*
-%{_mandir}/man1/tnameserv.*
-%{_mandir}/man1/unpack200.*
-%lang(ja) %{_mandir}/ja/man1/java.*
+%{_mandir}/man1/keytool.1*
+%{_mandir}/man1/orbd.1*
+%{_mandir}/man1/pack200.1*
+%{_mandir}/man1/policytool.1*
+%{_mandir}/man1/rmid.1*
+%{_mandir}/man1/rmiregistry.1*
+%{_mandir}/man1/servertool.1*
+%{_mandir}/man1/tnameserv.1*
+%{_mandir}/man1/unpack200.1*
+%lang(ja) %{_mandir}/ja/man1/java.1*
 %ifnarch x86_64
-%lang(ja) %{_mandir}/ja/man1/javaws.*
+%lang(ja) %{_mandir}/ja/man1/javaws.1*
 %endif
-%lang(ja) %{_mandir}/ja/man1/keytool.*
-%lang(ja) %{_mandir}/ja/man1/orbd.*
-%lang(ja) %{_mandir}/ja/man1/pack200.*
-%lang(ja) %{_mandir}/ja/man1/policytool.*
-%lang(ja) %{_mandir}/ja/man1/rmid.*
-%lang(ja) %{_mandir}/ja/man1/rmiregistry.*
-%lang(ja) %{_mandir}/ja/man1/servertool.*
-%lang(ja) %{_mandir}/ja/man1/tnameserv.*
-%lang(ja) %{_mandir}/ja/man1/unpack200.*
+%lang(ja) %{_mandir}/ja/man1/keytool.1*
+%lang(ja) %{_mandir}/ja/man1/orbd.1*
+%lang(ja) %{_mandir}/ja/man1/pack200.1*
+%lang(ja) %{_mandir}/ja/man1/policytool.1*
+%lang(ja) %{_mandir}/ja/man1/rmid.1*
+%lang(ja) %{_mandir}/ja/man1/rmiregistry.1*
+%lang(ja) %{_mandir}/ja/man1/servertool.1*
+%lang(ja) %{_mandir}/ja/man1/tnameserv.1*
+%lang(ja) %{_mandir}/ja/man1/unpack200.1*
 
 %files jre-base
 %defattr(644,root,root,755)
@@ -744,14 +744,14 @@ rm -rf $RPM_BUILD_ROOT
 %files jar
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/jar
-%{_mandir}/man1/jar.*
-%lang(ja) %{_mandir}/ja/man1/jar.*
+%{_mandir}/man1/jar.1*
+%lang(ja) %{_mandir}/ja/man1/jar.1*
 
 %files appletviewer
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/appletviewer
-%{_mandir}/man1/appletviewer.*
-%lang(ja) %{_mandir}/ja/man1/appletviewer.*
+%{_mandir}/man1/appletviewer.1*
+%lang(ja) %{_mandir}/ja/man1/appletviewer.1*
 
 %files jdk-sources
 %defattr(644,root,root,755)
