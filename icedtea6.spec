@@ -73,6 +73,7 @@ Obsoletes:	java-sun-sources
 Obsoletes:	java-sun-tools
 # redudant with the same in %{name}-jre, but seems needed for clean java-sun replacement
 Obsoletes:	java-sun-jre
+Suggests:	browser-plugin-java-%{name} = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define _gcj_home /usr/%{_lib}/java/java-1.5.0-gcj-1.5.0.0
@@ -82,6 +83,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		jrereldir	%{dstreldir}/jre
 %define		jredir		%{_jvmdir}/%{jrereldir}
 %define		jvmjardir	%{_jvmjardir}/%{name}-%{version}
+
+%define		_plugindir	%{_libdir}/browser-plugins
 
 %ifarch x86_64 amd64
 %define		jre_arch	amd64
@@ -194,6 +197,24 @@ Requires:	%{name}-jre-base = %{version}-%{release}
 Font handling library for OpenJDK runtime environment compiled using
 IcedTea6 tool-set.
 
+%package jre-mozilla-plugin
+Summary:	IceTea Java plugin for WWW browsers
+Summary(pl.UTF-8):	Wtyczka Javy do przeglądarek WWW
+Group:		Development/Languages/Java
+Requires:	%{name}-jre-X11 = %{version}-%{release}
+
+%description jre-mozilla-plugin
+Java plugin for WWW browsers.
+
+To install this plugin automatically in PLD web browsers install
+'browser-plugin-java-%{name}' package too.
+
+%description jre-mozilla-plugin
+Wtyczka z obsługą Javy dla przeglądarek WWW.
+
+Aby zainstalować ją automatycznie w przeglądakach WWW w PLD,
+zainstaluj też pakiet 'browser-plugin-java-%{name}'.
+
 %package jar
 Summary:	OpenJDK and GNU Classpath code - JAR tool
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - narzędzie JAR
@@ -240,7 +261,7 @@ tool-set.
 Summary:	IceTea Java plugin for WWW browsers
 Summary(pl.UTF-8):	Wtyczka Javy do przeglądarek WWW
 Group:		Development/Languages/Java
-Requires:	%{name}-jre-X11 = %{version}-%{release}
+Requires:	%{name}-jre-mozilla-plugin = %{version}-%{release}
 Requires:	browser-plugins >= 2.0
 Requires:	browser-plugins(%{_target_base_arch})
 
@@ -249,7 +270,6 @@ Java plugin for WWW browsers.
 
 %description -n browser-plugin-java-%{name} -l pl.UTF-8
 Wtyczka z obsługą Javy dla przeglądarek WWW.
-
 
 %prep
 %setup -q
@@ -292,7 +312,7 @@ unset JAVA_HOME || :
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{dstdir},%{_mandir}/ja} \
+install -d $RPM_BUILD_ROOT{%{_bindir},%{dstdir},%{_mandir}/ja,%{_plugindir}} \
 	$RPM_BUILD_ROOT{%{jvmjardir},%{_prefix}/src/%{name}-{jdk-sources,examples}}
 
 # install the 'JDK image', it contains the JRE too
@@ -317,11 +337,18 @@ rmdir $RPM_BUILD_ROOT%{dstdir}/man
 # replace duplicates with symlinks, link to %{_bindir}
 for path in $RPM_BUILD_ROOT%{dstdir}/bin/* ; do
 	filename=`basename $path`
-	ln -sf "%{dstdir}/bin/$filename" $RPM_BUILD_ROOT%{_bindir}
-	diff -q "$path" "$RPM_BUILD_ROOT%{jredir}/bin/$filename" > /dev/null || continue
-	ln -sf "../jre/bin/$filename" "$path"
+	if diff -q "$path" "$RPM_BUILD_ROOT%{jredir}/bin/$filename" > /dev/null ; then
+		ln -sf "../jre/bin/$filename" "$path"
+		ln -sf "%{jredir}/bin/$filename" $RPM_BUILD_ROOT%{_bindir}
+	else
+		ln -sf "%{dstdir}/bin/$filename" $RPM_BUILD_ROOT%{_bindir}
+	fi
 done
 ln -sf ../jre/lib/jexec $RPM_BUILD_ROOT%{dstdir}/lib/jexec
+
+%if %{with_plugin}
+ln -s %{jredir}/lib/%{jre_arch}/IcedTeaPlugin.so $RPM_BUILD_ROOT%{_plugindir}/
+%endif
 
 ln -sf %{jredir}/lib/jsse.jar $RPM_BUILD_ROOT%{jvmjardir}/jsse.jar
 ln -sf %{jredir}/lib/jsse.jar $RPM_BUILD_ROOT%{jvmjardir}/jcert.jar
@@ -439,14 +466,12 @@ rm -rf $RPM_BUILD_ROOT
 %doc openjdk/build/linux-*/j2sdk-image/ASSEMBLY_EXCEPTION
 %dir %{dstdir}
 %{_jvmdir}/%{name}
-%dir %{dstdir}/bin
 %attr(755,root,root) %{dstdir}/bin/appletviewer
 %attr(755,root,root) %{dstdir}/bin/apt
 %attr(755,root,root) %{dstdir}/bin/extcheck
 %attr(755,root,root) %{dstdir}/bin/idlj
 %attr(755,root,root) %{dstdir}/bin/jar
 %attr(755,root,root) %{dstdir}/bin/jarsigner
-%attr(755,root,root) %{dstdir}/bin/java
 %attr(755,root,root) %{dstdir}/bin/java-rmi.cgi
 %attr(755,root,root) %{dstdir}/bin/javac
 %attr(755,root,root) %{dstdir}/bin/javadoc
@@ -466,19 +491,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{dstdir}/bin/jstack
 %attr(755,root,root) %{dstdir}/bin/jstat
 %attr(755,root,root) %{dstdir}/bin/jstatd
-%attr(755,root,root) %{dstdir}/bin/keytool
 %attr(755,root,root) %{dstdir}/bin/native2ascii
-%attr(755,root,root) %{dstdir}/bin/orbd
-%attr(755,root,root) %{dstdir}/bin/pack200
-%attr(755,root,root) %{dstdir}/bin/policytool
 %attr(755,root,root) %{dstdir}/bin/rmic
-%attr(755,root,root) %{dstdir}/bin/rmid
-%attr(755,root,root) %{dstdir}/bin/rmiregistry
 %attr(755,root,root) %{dstdir}/bin/schemagen
 %attr(755,root,root) %{dstdir}/bin/serialver
 %attr(755,root,root) %{dstdir}/bin/servertool
-%attr(755,root,root) %{dstdir}/bin/tnameserv
-%attr(755,root,root) %{dstdir}/bin/unpack200
 %attr(755,root,root) %{dstdir}/bin/wsgen
 %attr(755,root,root) %{dstdir}/bin/wsimport
 %attr(755,root,root) %{dstdir}/bin/xjc
@@ -543,19 +560,29 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{jredir}
 %{_jvmdir}/%{name}-jre
 %dir %{jredir}/bin
+%dir %{dstdir}/bin
 %attr(755,root,root) %{jredir}/bin/java
+%attr(755,root,root) %{dstdir}/bin/java
 %ifnarch x86_64
 %attr(755,root,root) %{jredir}/bin/javaws
+%attr(755,root,root) %{dstdir}/bin/javaws
 %endif
 %attr(755,root,root) %{jredir}/bin/keytool
+%attr(755,root,root) %{dstdir}/bin/keytool
 %attr(755,root,root) %{jredir}/bin/orbd
+%attr(755,root,root) %{dstdir}/bin/orbd
 %attr(755,root,root) %{jredir}/bin/pack200
-%attr(755,root,root) %{jredir}/bin/policytool
+%attr(755,root,root) %{dstdir}/bin/pack200
 %attr(755,root,root) %{jredir}/bin/rmid
+%attr(755,root,root) %{dstdir}/bin/rmid
 %attr(755,root,root) %{jredir}/bin/rmiregistry
+%attr(755,root,root) %{dstdir}/bin/rmiregistry
 %attr(755,root,root) %{jredir}/bin/servertool
+%attr(755,root,root) %{dstdir}/bin/servertool
 %attr(755,root,root) %{jredir}/bin/tnameserv
+%attr(755,root,root) %{dstdir}/bin/tnameserv
 %attr(755,root,root) %{jredir}/bin/unpack200
+%attr(755,root,root) %{dstdir}/bin/unpack200
 %dir %{jredir}/lib
 %dir %{jredir}/lib/applet
 %{jredir}/lib/cmm
@@ -638,18 +665,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files jre-X11
 %defattr(644,root,root,755)
+%attr(755,root,root) %{jredir}/bin/policytool
+%attr(755,root,root) %{dstdir}/bin/policytool
 %dir %{jredir}/lib/%{jre_arch}/xawt
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/xawt/*.so
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libsplashscreen.so
 
 %files jre-alsa
 %defattr(644,root,root,755)
-%dir %{jredir}/lib/%{jre_arch}/xawt
-%attr(755,root,root) %{jredir}/lib/%{jre_arch}/xawt/*.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libjsoundalsa.so
 
 %files jre-freetype
 %defattr(644,root,root,755)
-%dir %{jredir}/lib/%{jre_arch}/xawt
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libfontmanager.so
 
 %files jar
@@ -664,7 +691,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/appletviewer.*
 %lang(ja) %{_mandir}/ja/man1/appletviewer.*
 
-
 %files jdk-sources
 %defattr(644,root,root,755)
 %dir %{_prefix}/src/%{name}-jdk-sources
@@ -675,9 +701,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/src/%{name}-examples
 
 %if %{with plugin}
-%files -n browser-plugin-java-%{name}
-%attr(755,root,root) %{_bindir}/pluginappletviewer
-%attr(755,root,root) %{dstdir}/bin/pluginappletviewer
+%files jre-mozilla-plugin
+%defattr(644,root,root,755)
 %attr(755,root,root) %{jredir}/bin/pluginappletviewer
+%attr(755,root,root) %{dstdir}/bin/pluginappletviewer
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/IcedTeaPlugin.so
+
+%files -n browser-plugin-java-%{name}
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/pluginappletviewer
+%attr(755,root,root) %{_plugindir}/IcedTeaPlugin.so
 %endif
