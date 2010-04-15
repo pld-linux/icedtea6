@@ -1,1 +1,4 @@
+- better descriptions
+- Polish descriptions for subpackages
 - browser plugin
+- check and improve jre Provides (though the APIs should be java-* or java(*), not like in current java-sun-jre)
