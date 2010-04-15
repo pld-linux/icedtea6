@@ -234,7 +234,7 @@ cp -R openjdk/build/linux-*/j2sdk-image/* $RPM_BUILD_ROOT%{dstdir}
 
 # convenience symlinks without version number
 ln -s %{dstreldir} $RPM_BUILD_ROOT%{_jvmdir}/%{name}
-ln -s %{jrereldir} $RPM_BUILD_ROOT%{_jvmdir}/%{name}-%{jre}
+ln -s %{jrereldir} $RPM_BUILD_ROOT%{_jvmdir}/%{name}-jre
 
 # move JDK sources and demo to /usr/src
 mv $RPM_BUILD_ROOT%{dstdir}/demo $RPM_BUILD_ROOT%{_prefix}/src/%{name}-examples/
@@ -462,7 +462,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc openjdk/build/linux-*/j2sdk-image/ASSEMBLY_EXCEPTION
 %dir %{dstdir}
 %dir %{jredir}
-%{_jvmdir}/%{name}-%{jre}
+%{_jvmdir}/%{name}-jre
 %dir %{jredir}/bin
 %attr(755,root,root) %{jredir}/bin/java
 %attr(755,root,root) %{jredir}/bin/javaws
