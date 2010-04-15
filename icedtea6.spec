@@ -116,7 +116,7 @@ wszystkie komponenty IcedTea6, w tym środowisko programistyczne
 (OpenJDK) i uruchomieniowe (JRE).
 
 %package jdk
-Summary:	OpenJDK and GNU Classpath code - software developement kit
+Summary:	OpenJDK and GNU Classpath code - software development kit
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - środowisko programistyczne
 Group:		Development/Languages/Java
 Requires:	%{name}-jdk-base = %{version}-%{release}
@@ -130,17 +130,27 @@ Obsoletes:	jdk
 Obsoletes:	kaffe
 
 %description jdk
-OpenJDK compiled using IcedTea6 tool-set.
+OpenJDK build using free software only.
+
+%description jdk -l pl.UTF-8
+OpenJDK skompilowane wyłącznie przy użyciu wolnego oprogramowania.
 
 %package jdk-base
-Summary:	OpenJDK and GNU Classpath code - software developement kit
+Summary:	OpenJDK and GNU Classpath code - software development kit
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - środowisko programistyczne
 Group:		Development/Languages/Java
 Requires:	%{name}-jre-base = %{version}-%{release}
 Requires:	jpackage-utils >= 0:1.6.6-14
 
 %description jdk-base
-OpenJDK runtime environment compiled using IcedTea6 tool-set.
+This package symlinks OpenJDK development tools to system-wide
+directories like %{_bindir}, making OpenJDK default JDK.
+
+%description jdk-base -l pl.UTF-8
+Ten pakiet tworzy symboliczne dowiązania do narzędzi programistycznych
+OpenJDK w standardowych systemowych ścieżkach takich jak %{_bindir},
+sprawiając tym samym, że OpenJDK staje się domyślnym JDK w Twoim
+systemie.
 
 %package jre
 Summary:	OpenJDK and GNU Classpath code - runtime environment
@@ -157,7 +167,11 @@ Provides:	jre = %{_jdkversion}
 Obsoletes:	jre
 
 %description jre
-OpenJDK runtime environment compiled using IcedTea6 tool-set.
+OpenJDK runtime environment built using free software only.
+
+%description jre -l pl.UTF-8
+Środowisko uruchomieniowe OpenJDK zbudowany wyłącznie przy użyciu
+wolnego oprogramowania.
 
 %package jre-base
 Summary:	OpenJDK and GNU Classpath code - runtime environment
@@ -167,7 +181,13 @@ Requires:	jpackage-utils >= 0:1.6.6-14
 Provides:	java(ClassDataVersion) = %{_classdataversion}
 
 %description jre-base
-OpenJDK runtime environment compiled using IcedTea6 tool-set.
+This package symlinks OpenJDK runtime tools to system-wide directories
+like %{_bindir}, making OpenJDK default JRE.
+
+%description jre-base -l pl.UTF-8
+Ten pakiet tworzy symboliczne dowiązania do narzędzi jre OpenJDK w
+standardowych systemowych ścieżkach takich jak %{_bindir}, sprawiając
+tym samym, że OpenJDK staje się domyślnym JRE w Twoim systemie.
 
 %package jre-X11
 Summary:	IcedTea6 OpenJDK - runtime environment - X11 support
@@ -177,8 +197,12 @@ Requires:	%{name}-jre-base = %{version}-%{release}
 Requires:	%{name}-jre-freetype = %{version}-%{release}
 
 %description jre-X11
-X11 support for OpenJDK runtime environment compiled using IcedTea6
-tool-set.
+X11 support for OpenJDK runtime environment built using free software
+only.
+
+%description jre-X11 -l pl.UTf-8
+Biblioteki X11 dla środowiska OpenJDK zbudowany wyłocznie przy uzyciu
+wolnego oprogramowania.
 
 %package jre-alsa
 Summary:	IcedTea6 OpenJDK - runtime environment - ALSA support
@@ -187,8 +211,12 @@ Group:		Development/Languages/Java
 Requires:	%{name}-jre-base = %{version}-%{release}
 
 %description jre-alsa
-ALSA sound support for OpenJDK runtime environment compiled using
-IcedTea6 tool-set.
+ALSA sound support for OpenJDK runtime environment build using free
+software only.
+
+%description jre-alsa -l pl.UTF-8
+Biblioteki ALSA rozszerzające środowisko OpenJDK o obsługę dźwięku
+zbudowane przy uzyciu wyłącznie wolnego oprogramowania.
 
 %package jre-freetype
 Summary:	IcedTea6 OpenJDK - runtime environment - font support
@@ -197,8 +225,12 @@ Group:		Development/Languages/Java
 Requires:	%{name}-jre-base = %{version}-%{release}
 
 %description jre-freetype
-Font handling library for OpenJDK runtime environment compiled using
-IcedTea6 tool-set.
+Font handling library for OpenJDK runtime environment built using free
+software only.
+
+%description jre-freetype -l pl.UTF-8
+Biblioteki obsługi czcionek dla OpenJDK zbudowane wyłącznie przy
+użyciu wolnego oprogramowania.
 
 %package jre-mozilla-plugin
 Summary:	IceTea Java plugin for WWW browsers
@@ -207,16 +239,18 @@ Group:		Development/Languages/Java
 Requires:	%{name}-jre-X11 = %{version}-%{release}
 
 %description jre-mozilla-plugin
-Java plugin for WWW browsers.
+OpenJDK Java plugin for WWW browsers built using free software only.
 
 To install this plugin automatically in PLD web browsers install
 'browser-plugin-java-%{name}' package too.
 
 %description jre-mozilla-plugin
-Wtyczka z obsługą Javy dla przeglądarek WWW.
+Wtyczka dla przeglądarek oferująca wsparcie dla javy za pośrednictwem
+środowiska OpenJDK zbudowana wyłącznie przy użyciu wolnego
+oprogramowania.
 
-Aby zainstalować ją automatycznie w przeglądakach WWW w PLD,
-zainstaluj też pakiet 'browser-plugin-java-%{name}'.
+Aby zainstalować tę wtyczke automatycznie w przeglądarkach dostępnych
+w PLD, zainstaluj również pakiet 'browser-plugin-java-%{name}.
 
 %package jar
 Summary:	OpenJDK and GNU Classpath code - JAR tool
@@ -228,9 +262,17 @@ Obsoletes:	fastjar
 Obsoletes:	jar
 
 %description jar
-JAR tool from OpenJDK compiled using IcedTea6 tool-set.
+JAR tool from OpenJDK built using free software only.
 
 JAR is an archiver used to merge Java classes into a single library.
+
+%description jar -l pl.UTF-8
+Narzędzie jar z OpenJDK zbudowane przy uzyciu wyłącznie wolnego
+oprogramowania.
+
+JAR jest narzędziem pozwalającym wykonywać podstawowe operacje na
+archiwach javy .jar takie jak na przykład tworzenie lub rozpakowywanie
+archiwów.
 
 %package appletviewer
 Summary:	OpenJDK and GNU Classpath code - appletviewer tool
@@ -241,7 +283,12 @@ Requires:	%{name}-jre-X11 = %{version}-%{release}
 Obsoletes:	java-sun-appletviewer
 
 %description appletviewer
-Appletviewer from OpenJDK compiled using IcedTea6 tool-set.
+Appletviewer from OpenJDK build using free software only.
+
+%description appletviewer -l pl.UTF-8
+Appletviewer pozwala uruchamiać aplety javy niezależnie od
+przeglądarki www. Ten appletviewer pochodzi z zestawu narzędzi OpenJDK
+i został zbudowany wyłącznie przy użyciu wolnego oprogramowania.
 
 %package jdk-sources
 Summary:	OpenJDK and GNU Classpath code - sources
@@ -249,7 +296,11 @@ Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - kod źródłowy
 Group:		Development/Languages/Java
 
 %description jdk-sources
-Source code for the OpenJDK runtime environment standard library.
+Source code for the OpenJDK development kit and Java standard library.
+
+%description jdk-sources -l pl.UTF-8
+Kod źródłowy narzędzi programistycznych OpenJDK oraz standardowej
+biblioteki Javy.
 
 %package examples
 Summary:	OpenJDK and GNU Classpath code - examples
@@ -257,8 +308,10 @@ Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - przykłady
 Group:		Development/Languages/Java
 
 %description examples
-Code examples OpenJDK runtime environment compiled using IcedTea6
-tool-set.
+Code examples for OpenJDK.
+
+%description examples -l pl.UTF-8
+Przykłady dla OpenJDK.
 
 %package -n browser-plugin-java-%{name}
 Summary:	IceTea Java plugin for WWW browsers
