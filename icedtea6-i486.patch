@@ -1,0 +1,26 @@
+--- icedtea6-1.8/acinclude.m4.orig	2010-04-10 21:58:40.000000000 +0200
++++ icedtea6-1.8/acinclude.m4	2010-04-15 19:34:17.000000000 +0200
+@@ -8,6 +8,14 @@
+       CROSS_TARGET_ARCH=x86_64
+       ARCHFLAG="-m64"
+       ;;
++    i486)
++      BUILD_ARCH_DIR=i486
++      INSTALL_ARCH_DIR=i386
++      JRE_ARCH_DIR=i386
++      ARCH_PREFIX=${LINUX32}
++      CROSS_TARGET_ARCH=i386
++      ARCHFLAG="-m32"
++      ;;
+     i?86)
+       BUILD_ARCH_DIR=i586
+       INSTALL_ARCH_DIR=i386
+@@ -746,7 +754,7 @@
+       use_zero=yes;
+     else
+       case "${host}" in
+-        i?86-*-*) ;;
++        i[567]86-*-*) ;;
+         sparc*-*-*) ;;
+         x86_64-*-*) ;;
+         *)

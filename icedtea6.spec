@@ -26,10 +26,13 @@ Source3:	http://kenai.com/projects/jdk6-drops/downloads/download/jdk6-jaf-2009_1
 # Source3-md5:	7a50bb540a27cdd0001885630088b758
 Source4:	https://jaxp.dev.java.net/files/documents/913/147329/jdk6-jaxp-2009_10_13.zip
 # Source4-md5:	a2f7b972124cd776ff71e7754eb9a429
+Patch0:		%{name}-i486.patch
 URL:		http://icedtea.classpath.org/wiki/Main_Page
 BuildRequires:	alsa-lib-devel
 %{!?with_bootstrap:BuildRequires:	ant}
 %{!?with_bootstrap:BuildRequires:	ant-nodeps}
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	bash
 BuildRequires:	cups-devel
 BuildRequires:	freetype-devel >= 2.3
@@ -273,6 +276,7 @@ Wtyczka z obsługą Javy dla przeglądarek WWW.
 
 %prep
 %setup -q
+%patch0 -p1
 
 # let the build system extract the sources where it wants them
 mkdir drops
@@ -283,6 +287,11 @@ ln -s %{SOURCE4} drops
 
 %build
 unset JAVA_HOME || :
+
+%{__aclocal}
+%{__autoconf}
+%{__automake}
+
 %configure \
 %if %{with bootstrap}
 	--with-gcj-home=%{_gcj_home} \
