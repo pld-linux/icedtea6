@@ -39,6 +39,7 @@ BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	mercurial
 BuildRequires:	motif-devel
+BuildRequires:	nss-devel
 BuildRequires:	rhino
 BuildRequires:	unzip
 BuildRequires:	java-xalan
