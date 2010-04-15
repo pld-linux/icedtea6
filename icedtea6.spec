@@ -561,9 +561,11 @@ rm -rf $RPM_BUILD_ROOT
 %{jredir}/lib/cmm
 %{jredir}/lib/ext
 %dir %{jredir}/lib/%{jre_arch}
+%ifnarch x86_64
 %dir %{jredir}/lib/%{jre_arch}/client
 %{jredir}/lib/%{jre_arch}/client/Xusage.txt
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/client/*.so
+%endif
 %dir %{jredir}/lib/%{jre_arch}/headless
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/headless/*.so
 %dir %{jredir}/lib/%{jre_arch}/jli
