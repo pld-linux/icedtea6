@@ -144,6 +144,7 @@ Summary:	IcedTea6 OpenJDK - runtime environment - X11 support
 Summary(pl.UTF-8):	IcedTea6 OpenJDK - środowisko uruchomieniowe - obsługa X11
 Group:		Development/Languages/Java
 Requires:	%{name}-jre-base = %{version}-%{release}
+Requires:	%{name}-jre-freetype = %{version}-%{release}
 
 %description jre-X11
 X11 support for OpenJDK runtime environment compiled using IcedTea6 tool-set.
