@@ -37,7 +37,6 @@ BuildRequires:	java-gcj-compat-devel-base
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
-BuildRequires:	mercurial
 BuildRequires:	motif-devel
 BuildRequires:	nss-devel
 BuildRequires:	rhino
