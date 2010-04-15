@@ -2,5 +2,6 @@
 - Polish descriptions for subpackages
 - browser plugin
 - Java WebStart on x86_64
+- pass %{rpmcflags} to build
 - check and improve jre Provides (though the APIs should be java-* or java(*),
   not like in current java-sun-jre)
