@@ -8,7 +8,7 @@ Summary:	OpenJDK and GNU Classpath code
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath
 Name:		icedtea6
 Version:	1.8
-Release:	0.1
+Release:	0.2
 License:	GPL v2
 Group:		Development/Languages/Java
 Source0:	http://icedtea.classpath.org/download/source/%{name}-%{version}.tar.gz
@@ -54,7 +54,19 @@ BuildRequires:	xorg-proto-xproto-devel
 BuildRequires:	zlib-devel
 BuildRequires:	zip
 Requires:	%{name}-jdk = %{version}-%{release}
-Requires:	%{name}-tools = %{version}-%{release}
+Requires:	%{name}-jar = %{version}-%{release}
+Requires:	%{name}-appletviewer = %{version}-%{release}
+Obsoletes:	java-gcj-compat
+Obsoletes:	java-gcj-compat-devel
+Obsoletes:	java-sun
+Obsoletes:	java-sun-demos
+Obsoletes:	java-sun-jre-X11
+Obsoletes:	java-sun-jre-alsa
+Obsoletes:	java-sun-jre-jdbc
+Obsoletes:	java-sun-sources
+Obsoletes:	java-sun-tools
+# redudant with the same in %{name}-jre, but seems needed for clean java-sun replacement
+Obsoletes:	java-sun-jre 
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define _gcj_home /usr/lib/java/java-1.5.0-gcj-1.5.0.0
@@ -170,14 +182,27 @@ Font handling library for OpenJDK runtime environment compiled using IcedTea6 to
 %package jar
 Summary:	OpenJDK and GNU Classpath code - JAR tool
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - narzędzie JAR
+Requires:	%{name}-jdk-base = %{version}-%{release}
 Provides:	jar
-Requires:	%{name}-jdk-base = %{name}-%{release}
+Obsoletes:	jar
+Obsoletes:	fastjar
 Group:		Development/Languages/Java
 
 %description jar
-JAR tools from OpenJDK compiled using IcedTea6 tool-set.
+JAR tool from OpenJDK compiled using IcedTea6 tool-set.
 
 JAR is an archiver used to merge Java classes into a single library.
+
+%package appletviewer
+Summary:	OpenJDK and GNU Classpath code - appletviewer tool
+Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - narzędzie appletviewer
+Requires:	%{name}-jdk-base = %{version}-%{release}
+Requires:	%{name}-jre-X11 = %{version}-%{release}
+Obsoletes:	java-sun-appletviewer
+Group:		Development/Languages/Java
+
+%description appletviewer 
+Appletviewer from OpenJDK compiled using IcedTea6 tool-set.
 
 %package jdk-sources
 Summary:	OpenJDK and GNU Classpath code - sources
@@ -279,7 +304,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files jdk
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/appletviewer
 %attr(755,root,root) %{_bindir}/apt
 %attr(755,root,root) %{_bindir}/extcheck
 %attr(755,root,root) %{_bindir}/idlj
@@ -308,7 +332,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/wsgen
 %attr(755,root,root) %{_bindir}/wsimport
 %attr(755,root,root) %{_bindir}/xjc
-%{_mandir}/man1/appletviewer.*
 %{_mandir}/man1/apt.*
 %{_mandir}/man1/extcheck.*
 %{_mandir}/man1/idlj.*
@@ -335,7 +358,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/wsgen.*
 %{_mandir}/man1/wsimport.*
 %{_mandir}/man1/xjc.*
-%lang(ja) %{_mandir}/ja/man1/appletviewer.*
 %lang(ja) %{_mandir}/ja/man1/apt.*
 %lang(ja) %{_mandir}/ja/man1/extcheck.*
 %lang(ja) %{_mandir}/ja/man1/idlj.*
@@ -575,6 +597,13 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/jar
 %{_mandir}/man1/jar.*
 %lang(ja) %{_mandir}/ja/man1/jar.*
+
+%files appletviewer
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/appletviewer
+%{_mandir}/man1/appletviewer.*
+%lang(ja) %{_mandir}/ja/man1/appletviewer.*
+
 
 %files jdk-sources
 %defattr(644,root,root,755)
