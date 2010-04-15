@@ -82,6 +82,12 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		jredir		%{_jvmdir}/%{jrereldir}
 %define		jvmjardir	%{_jvmjardir}/%{name}-%{version}
 
+%ifarch x86_64 amd64
+%define		jre_arch	amd64
+%else
+%define		jre_arch	i386
+%endif
+
 %description
 The IcedTea project provides a harness to build the source code from
 http://openjdk.java.net/ using Free Software build tools and provides
@@ -516,48 +522,48 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{jredir}/lib/applet
 %{jredir}/lib/cmm
 %{jredir}/lib/ext
-%dir %{jredir}/lib/i386
-%dir %{jredir}/lib/i386/client
-%{jredir}/lib/i386/client/Xusage.txt
-%attr(755,root,root) %{jredir}/lib/i386/client/*.so
-%dir %{jredir}/lib/i386/headless
-%attr(755,root,root) %{jredir}/lib/i386/headless/*.so
-%dir %{jredir}/lib/i386/jli
-%attr(755,root,root) %{jredir}/lib/i386/jli/*.so
-%dir %{jredir}/lib/i386/native_threads
-%attr(755,root,root) %{jredir}/lib/i386/native_threads/*.so
-%dir %{jredir}/lib/i386/server
-%{jredir}/lib/i386/server/Xusage.txt
-%attr(755,root,root) %{jredir}/lib/i386/server/*.so
-%{jredir}/lib/i386/jvm.cfg
-%attr(755,root,root) %{jredir}/lib/i386/libattach.so
-%attr(755,root,root) %{jredir}/lib/i386/libawt.so
-%attr(755,root,root) %{jredir}/lib/i386/libdt_socket.so
-%attr(755,root,root) %{jredir}/lib/i386/libhprof.so
-%attr(755,root,root) %{jredir}/lib/i386/libinstrument.so
-%attr(755,root,root) %{jredir}/lib/i386/libj2gss.so
-%attr(755,root,root) %{jredir}/lib/i386/libj2pcsc.so
-%attr(755,root,root) %{jredir}/lib/i386/libj2pkcs11.so
-%attr(755,root,root) %{jredir}/lib/i386/libjaas_unix.so
-%attr(755,root,root) %{jredir}/lib/i386/libjava.so
-%attr(755,root,root) %{jredir}/lib/i386/libjava_crw_demo.so
-%attr(755,root,root) %{jredir}/lib/i386/libjawt.so
-%attr(755,root,root) %{jredir}/lib/i386/libjdwp.so
-%attr(755,root,root) %{jredir}/lib/i386/libjpeg.so
-%attr(755,root,root) %{jredir}/lib/i386/libjsig.so
-%attr(755,root,root) %{jredir}/lib/i386/libjsound.so
-%attr(755,root,root) %{jredir}/lib/i386/libjsoundalsa.so
-%attr(755,root,root) %{jredir}/lib/i386/liblcms.so
-%attr(755,root,root) %{jredir}/lib/i386/libmanagement.so
-%attr(755,root,root) %{jredir}/lib/i386/libmlib_image.so
-%attr(755,root,root) %{jredir}/lib/i386/libnet.so
-%attr(755,root,root) %{jredir}/lib/i386/libnio.so
-%attr(755,root,root) %{jredir}/lib/i386/libnpt.so
-%attr(755,root,root) %{jredir}/lib/i386/librmi.so
-%attr(755,root,root) %{jredir}/lib/i386/libsaproc.so
-%attr(755,root,root) %{jredir}/lib/i386/libunpack.so
-%attr(755,root,root) %{jredir}/lib/i386/libverify.so
-%attr(755,root,root) %{jredir}/lib/i386/libzip.so
+%dir %{jredir}/lib/%{jre_arch}
+%dir %{jredir}/lib/%{jre_arch}/client
+%{jredir}/lib/%{jre_arch}/client/Xusage.txt
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/client/*.so
+%dir %{jredir}/lib/%{jre_arch}/headless
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/headless/*.so
+%dir %{jredir}/lib/%{jre_arch}/jli
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/jli/*.so
+%dir %{jredir}/lib/%{jre_arch}/native_threads
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/native_threads/*.so
+%dir %{jredir}/lib/%{jre_arch}/server
+%{jredir}/lib/%{jre_arch}/server/Xusage.txt
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/server/*.so
+%{jredir}/lib/%{jre_arch}/jvm.cfg
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libattach.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libawt.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libdt_socket.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libhprof.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libinstrument.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libj2gss.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libj2pcsc.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libj2pkcs11.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libjaas_unix.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libjava.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libjava_crw_demo.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libjawt.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libjdwp.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libjpeg.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libjsig.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libjsound.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libjsoundalsa.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/liblcms.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libmanagement.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libmlib_image.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libnet.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libnio.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libnpt.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/librmi.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libsaproc.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libunpack.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libverify.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libzip.so
 %{jredir}/lib/im
 %{jredir}/lib/images
 %{jredir}/lib/management
@@ -592,19 +598,19 @@ rm -rf $RPM_BUILD_ROOT
 
 %files jre-X11
 %defattr(644,root,root,755)
-%dir %{jredir}/lib/i386/xawt
-%attr(755,root,root) %{jredir}/lib/i386/xawt/*.so
-%attr(755,root,root) %{jredir}/lib/i386/libsplashscreen.so
+%dir %{jredir}/lib/%{jre_arch}/xawt
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/xawt/*.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libsplashscreen.so
 
 %files jre-alsa
 %defattr(644,root,root,755)
-%dir %{jredir}/lib/i386/xawt
-%attr(755,root,root) %{jredir}/lib/i386/xawt/*.so
+%dir %{jredir}/lib/%{jre_arch}/xawt
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/xawt/*.so
 
 %files jre-freetype
 %defattr(644,root,root,755)
-%dir %{jredir}/lib/i386/xawt
-%attr(755,root,root) %{jredir}/lib/i386/libfontmanager.so
+%dir %{jredir}/lib/%{jre_arch}/xawt
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libfontmanager.so
 
 %files jar
 %defattr(644,root,root,755)
