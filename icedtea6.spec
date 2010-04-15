@@ -29,8 +29,8 @@ Source4:	https://jaxp.dev.java.net/files/documents/913/147329/jdk6-jaxp-2009_10_
 Patch0:		%{name}-i486.patch
 URL:		http://icedtea.classpath.org/wiki/Main_Page
 BuildRequires:	alsa-lib-devel
-%{!?with_bootstrap:BuildRequires:	ant}
 %{!?with_bootstrap:BuildRequires:	ant-nodeps}
+%{!?with_bootstrap:BuildRequires:	ant}
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bash
@@ -75,8 +75,8 @@ Obsoletes:	java-sun-jre-jdbc
 Obsoletes:	java-sun-sources
 Obsoletes:	java-sun-tools
 # redudant with the same in %{name}-jre, but seems needed for clean java-sun replacement
-Obsoletes:	java-sun-jre
 Suggests:	browser-plugin-java-%{name} = %{version}-%{release}
+Obsoletes:	java-sun-jre
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define _gcj_home /usr/%{_lib}/java/java-1.5.0-gcj-1.5.0.0
