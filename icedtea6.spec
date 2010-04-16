@@ -27,6 +27,7 @@ Source4:	https://jaxp.dev.java.net/files/documents/913/147329/jdk6-jaxp-2009_10_
 # Source4-md5:	a2f7b972124cd776ff71e7754eb9a429
 Patch0:		%{name}-i486.patch
 Patch1:		%{name}-ecj_single_thread.patch
+Patch2:		%{name}-no_dtdtype_patch.patch
 URL:		http://icedtea.classpath.org/wiki/Main_Page
 BuildRequires:	alsa-lib-devel
 %{!?with_bootstrap:BuildRequires:	ant-nodeps}
@@ -351,6 +352,8 @@ Wtyczka z obsługą Javy dla przeglądarek WWW.
 
 # workaround for an ECJ bug
 %patch1 -p1
+
+%patch2 -p1
 
 # let the build system extract the sources where it wants them
 mkdir drops
