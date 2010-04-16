@@ -372,7 +372,8 @@ unset JAVA_HOME || :
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{dstdir},%{_mandir}/ja,%{_browserpluginsdir}} \
-	$RPM_BUILD_ROOT{%{jvmjardir},%{_prefix}/src/%{name}-{jdk-sources,examples}}
+	$RPM_BUILD_ROOT{%{jvmjardir},%{_prefix}/src/%{name}-{jdk-sources,examples}} \
+	$RPM_BUILD_ROOT%{_sysconfdir}/%{name}
 
 # install the 'JDK image', it contains the JRE too
 cp -a openjdk/build/linux-*/j2sdk-image/* $RPM_BUILD_ROOT%{dstdir}
@@ -405,7 +406,15 @@ for path in $RPM_BUILD_ROOT%{dstdir}/bin/*; do
 done
 ln -sf ../jre/lib/jexec $RPM_BUILD_ROOT%{dstdir}/lib/jexec
 
-%if %{with plugin}
+# keep configuration in /etc (not all *.properties go there)
+for config in management security content-types.properties \
+		logging.properties net.properties sound.properties ; do
+
+	mv $RPM_BUILD_ROOT%{dstdir}/lib/$config $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/$config
+	ln -s %{_sysconfdir}/%{name}/$config $RPM_BUILD_ROOT%{dstdir}/lib/$config
+done
+
+%if %{with_plugin}
 ln -s %{jredir}/lib/%{jre_arch}/IcedTeaPlugin.so $RPM_BUILD_ROOT%{_browserpluginsdir}
 %endif
 
@@ -615,6 +624,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc openjdk/build/linux-*/j2sdk-image/THIRD_PARTY_README
 %doc openjdk/build/linux-*/j2sdk-image/ASSEMBLY_EXCEPTION
+%dir %{_sysconfdir}/%{name}
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/*
 %dir %{dstdir}
 %dir %{jredir}
 %{_jvmdir}/%{name}-jre
