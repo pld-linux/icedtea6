@@ -362,7 +362,6 @@ unset JAVA_HOME || :
 %configure \
 %if %{with bootstrap}
 	--with-gcj-home=%{_gcj_home} \
-	--with-libgcj-jar=%{_javadir}/libgcj.jar \
 	--with-ecj-jar=%{_javadir}/ecj.jar \
 %else
 	--with-openjdk=%{_jvmdir}/icedtea6 \
