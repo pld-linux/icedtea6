@@ -1,13 +1,12 @@
 #
-%bcond_without bootstrap	# don't use gcj, use an installed icedtea6
-				# instead
+%bcond_without bootstrap	# don't use gcj, use an installed icedtea6 instead
 %bcond_without plugin		# don't build browser plugin
-#
+
 # class data version seen with file(1) that this jvm is able to load
 %define		_classdataversion 50.0
-%define		_jdkversion 1.6.0.18
 # JDK/JRE version, as returned with `java -version`, '_' replaced with '.'
-#
+%define		_jdkversion 1.6.0.18
+
 Summary:	OpenJDK and GNU Classpath code
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath
 Name:		icedtea6
@@ -51,6 +50,7 @@ BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	motif-devel
 BuildRequires:	nss-devel
+BuildRequires:	rpmbuild(macros) >= 1.364
 BuildRequires:	unzip
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXinerama-devel
@@ -79,15 +79,13 @@ Suggests:	browser-plugin-java-%{name}
 Obsoletes:	java-sun-jre
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define _gcj_home /usr/%{_lib}/java/java-1.5.0-gcj-1.5.0.0
+%define		_gcj_home	/usr/%{_lib}/java/java-1.5.0-gcj-1.5.0.0
 
 %define		dstreldir	%{name}-%{version}
 %define		dstdir		%{_jvmdir}/%{dstreldir}
 %define		jrereldir	%{dstreldir}/jre
 %define		jredir		%{_jvmdir}/%{jrereldir}
 %define		jvmjardir	%{_jvmjardir}/%{name}-%{version}
-
-%define		_plugindir	%{_libdir}/browser-plugins
 
 %ifarch x86_64 amd64
 %define		jre_arch	amd64
@@ -373,11 +371,11 @@ unset JAVA_HOME || :
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{dstdir},%{_mandir}/ja,%{_plugindir}} \
+install -d $RPM_BUILD_ROOT{%{_bindir},%{dstdir},%{_mandir}/ja,%{_browserpluginsdir}} \
 	$RPM_BUILD_ROOT{%{jvmjardir},%{_prefix}/src/%{name}-{jdk-sources,examples}}
 
 # install the 'JDK image', it contains the JRE too
-cp -R openjdk/build/linux-*/j2sdk-image/* $RPM_BUILD_ROOT%{dstdir}
+cp -a openjdk/build/linux-*/j2sdk-image/* $RPM_BUILD_ROOT%{dstdir}
 
 # convenience symlinks without version number
 ln -s %{dstreldir} $RPM_BUILD_ROOT%{_jvmdir}/%{name}
@@ -396,9 +394,9 @@ mv $RPM_BUILD_ROOT%{dstdir}/man/man1 $RPM_BUILD_ROOT%{_mandir}/man1
 rmdir $RPM_BUILD_ROOT%{dstdir}/man
 
 # replace duplicates with symlinks, link to %{_bindir}
-for path in $RPM_BUILD_ROOT%{dstdir}/bin/* ; do
-	filename=`basename $path`
-	if diff -q "$path" "$RPM_BUILD_ROOT%{jredir}/bin/$filename" > /dev/null ; then
+for path in $RPM_BUILD_ROOT%{dstdir}/bin/*; do
+	filename=$(basename $path)
+	if diff -q "$path" "$RPM_BUILD_ROOT%{jredir}/bin/$filename" > /dev/null; then
 		ln -sf "../jre/bin/$filename" "$path"
 		ln -sf "%{jredir}/bin/$filename" $RPM_BUILD_ROOT%{_bindir}
 	else
@@ -407,8 +405,8 @@ for path in $RPM_BUILD_ROOT%{dstdir}/bin/* ; do
 done
 ln -sf ../jre/lib/jexec $RPM_BUILD_ROOT%{dstdir}/lib/jexec
 
-%if %{with_plugin}
-ln -s %{jredir}/lib/%{jre_arch}/IcedTeaPlugin.so $RPM_BUILD_ROOT%{_plugindir}/
+%if %{with plugin}
+ln -s %{jredir}/lib/%{jre_arch}/IcedTeaPlugin.so $RPM_BUILD_ROOT%{_browserpluginsdir}
 %endif
 
 ln -sf %{jredir}/lib/jsse.jar $RPM_BUILD_ROOT%{jvmjardir}/jsse.jar
@@ -771,5 +769,5 @@ rm -rf $RPM_BUILD_ROOT
 %files -n browser-plugin-java-%{name}
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/pluginappletviewer
-%attr(755,root,root) %{_plugindir}/IcedTeaPlugin.so
+%attr(755,root,root) %{_browserpluginsdir}/IcedTeaPlugin.so
 %endif
