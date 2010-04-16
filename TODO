@@ -2,6 +2,6 @@
 - make the i486 build a i486 build, not i586 build ('zero' instead of hotspot?)
 - better descriptions
 - Polish descriptions for subpackages
-- Java WebStart on x86_64
+- javaws manual on x86_64 (it is not installed for some reason)
 - check and improve jre Provides (though the APIs should be java-* or java(*),
   not like in current java-sun-jre)
