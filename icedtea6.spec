@@ -62,8 +62,10 @@ BuildRequires:	xorg-proto-xproto-devel
 %{?with_plugin:BuildRequires:	xulrunner-devel}
 BuildRequires:	zip
 BuildRequires:	zlib-devel
+Suggests:	browser-plugin-java-%{name}
 Requires:	%{name}-appletviewer = %{version}-%{release}
 Requires:	%{name}-jdk = %{version}-%{release}
+Suggests:	%{name}-jre-X11
 Obsoletes:	java-gcj-compat
 Obsoletes:	java-gcj-compat-devel
 Obsoletes:	java-sun
@@ -73,8 +75,6 @@ Obsoletes:	java-sun-jre-alsa
 Obsoletes:	java-sun-jre-jdbc
 Obsoletes:	java-sun-sources
 Obsoletes:	java-sun-tools
-# redudant with the same in %{name}-jre, but seems needed for clean java-sun replacement
-Suggests:	browser-plugin-java-%{name}
 Obsoletes:	java-sun-jre
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -156,7 +156,6 @@ Summary:	OpenJDK and GNU Classpath code - runtime environment
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - środowisko uruchomieniowe
 Group:		Development/Languages/Java
 Requires:	%{name}-jre-base = %{version}-%{release}
-Suggests:	%{name}-jre-X11
 Provides:	j2re = %{_jdkversion}
 Provides:	java
 Provides:	java1.4
