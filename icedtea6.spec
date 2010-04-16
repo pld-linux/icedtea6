@@ -545,9 +545,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{dstdir}/bin/javadoc
 %attr(755,root,root) %{dstdir}/bin/javah
 %attr(755,root,root) %{dstdir}/bin/javap
-%ifnarch x86_64
-%attr(755,root,root) %{dstdir}/bin/javaws
-%endif
 %attr(755,root,root) %{dstdir}/bin/jconsole
 %attr(755,root,root) %{dstdir}/bin/jdb
 %attr(755,root,root) %{dstdir}/bin/jhat
@@ -581,9 +578,7 @@ rm -rf $RPM_BUILD_ROOT
 %files jre
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/java
-%ifnarch x86_64
 %attr(755,root,root) %{_bindir}/javaws
-%endif
 %attr(755,root,root) %{_bindir}/keytool
 %attr(755,root,root) %{_bindir}/orbd
 %attr(755,root,root) %{_bindir}/pack200
@@ -633,10 +628,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{dstdir}/bin
 %attr(755,root,root) %{jredir}/bin/java
 %attr(755,root,root) %{dstdir}/bin/java
-%ifnarch x86_64
 %attr(755,root,root) %{jredir}/bin/javaws
 %attr(755,root,root) %{dstdir}/bin/javaws
-%endif
 %attr(755,root,root) %{jredir}/bin/keytool
 %attr(755,root,root) %{dstdir}/bin/keytool
 %attr(755,root,root) %{jredir}/bin/orbd
