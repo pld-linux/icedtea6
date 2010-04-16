@@ -128,10 +128,14 @@ Obsoletes:	jdk
 Obsoletes:	kaffe
 
 %description jdk
-OpenJDK build using free software only.
+This package symlinks OpenJDK development tools provided by %{name}-jdk-base
+to system-wide directories like %{_bindir}, making OpenJDK default JDK.
 
 %description jdk -l pl.UTF-8
-OpenJDK skompilowane wyłącznie przy użyciu wolnego oprogramowania.
+Ten pakiet tworzy symboliczne dowiązania do narzędzi programistycznych
+OpenJDK, dostarczanych przez pakiet %{name}-jdk-base, w standardowych
+systemowych ścieżkach takich jak %{_bindir}, sprawiając tym samym, że OpenJDK
+staje się domyślnym JDK w systemie.
 
 %package jdk-base
 Summary:	OpenJDK and GNU Classpath code - software development kit
@@ -141,14 +145,10 @@ Requires:	%{name}-jre-base = %{version}-%{release}
 Requires:	jpackage-utils >= 0:1.6.6-14
 
 %description jdk-base
-This package symlinks OpenJDK development tools to system-wide
-directories like %{_bindir}, making OpenJDK default JDK.
+OpenJDK development tools built using free software only.
 
 %description jdk-base -l pl.UTF-8
-Ten pakiet tworzy symboliczne dowiązania do narzędzi programistycznych
-OpenJDK w standardowych systemowych ścieżkach takich jak %{_bindir},
-sprawiając tym samym, że OpenJDK staje się domyślnym JDK w Twoim
-systemie.
+OpenJDK skompilowane wyłącznie przy użyciu wolnego oprogramowania.
 
 %package jre
 Summary:	OpenJDK and GNU Classpath code - runtime environment
@@ -163,11 +163,15 @@ Provides:	jre = %{_jdkversion}
 Obsoletes:	jre
 
 %description jre
-OpenJDK runtime environment built using free software only.
+This package symlinks OpenJDK runtime environment tools provided by
+%{name}-jre-base to system-wide directories like %{_bindir}, making OpenJDK
+default JRE.
 
 %description jre -l pl.UTF-8
-Środowisko uruchomieniowe OpenJDK zbudowany wyłącznie przy użyciu
-wolnego oprogramowania.
+Ten pakiet tworzy symboliczne dowiązania do środowiska uruchomieniowego
+OpenJDK, dostarczanych przez pakiet %{name}-jre-base, w standardowych
+systemowych ścieżkach takich jak %{_bindir}, sprawiając tym samym, że OpenJDK
+staje się domyślnym JRE w systemie.
 
 %package jre-X11
 Summary:	IcedTea6 OpenJDK - runtime environment - X11 support
@@ -193,13 +197,11 @@ Requires:	jpackage-utils >= 0:1.6.6-14
 Provides:	java(ClassDataVersion) = %{_classdataversion}
 
 %description jre-base
-This package symlinks OpenJDK runtime tools to system-wide directories
-like %{_bindir}, making OpenJDK default JRE.
+OpenJDK runtime environment built using free software only.
 
 %description jre-base -l pl.UTF-8
-Ten pakiet tworzy symboliczne dowiązania do narzędzi jre OpenJDK w
-standardowych systemowych ścieżkach takich jak %{_bindir}, sprawiając
-tym samym, że OpenJDK staje się domyślnym JRE w Twoim systemie.
+Środowisko uruchomieniowe OpenJDK zbudowany wyłącznie przy użyciu
+wolnego oprogramowania.
 
 %package jre-base-X11
 Summary:	IcedTea6 OpenJDK - runtime environment - X11 support
