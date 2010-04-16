@@ -156,7 +156,6 @@ Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - środowisko uruchomieniowe
 Group:		Development/Languages/Java
 Requires:	%{name}-jre-base = %{version}-%{release}
 Suggests:	%{name}-jre-X11
-Suggests:	%{name}-jre-freetype
 Provides:	j2re = %{_jdkversion}
 Provides:	java
 Provides:	java1.4
@@ -168,6 +167,22 @@ OpenJDK runtime environment built using free software only.
 
 %description jre -l pl.UTF-8
 Środowisko uruchomieniowe OpenJDK zbudowany wyłącznie przy użyciu
+wolnego oprogramowania.
+
+%package jre-X11
+Summary:	IcedTea6 OpenJDK - runtime environment - X11 support
+Summary(pl.UTF-8):	IcedTea6 OpenJDK - środowisko uruchomieniowe - obsługa X11
+Group:		Development/Languages/Java
+Requires:	%{name}-jre = %{version}-%{release}
+Requires:	%{name}-jre-base-X11 = %{version}-%{release}
+Provides:	jre-X11 = %{_jdkversion}
+
+%description jre-X11
+X11 support for OpenJDK runtime environment built using free software
+only.
+
+%description jre-X11 -l pl.UTf-8
+Biblioteki X11 dla środowiska OpenJDK zbudowany wyłocznie przy uzyciu
 wolnego oprogramowania.
 
 %package jre-base
@@ -186,64 +201,62 @@ Ten pakiet tworzy symboliczne dowiązania do narzędzi jre OpenJDK w
 standardowych systemowych ścieżkach takich jak %{_bindir}, sprawiając
 tym samym, że OpenJDK staje się domyślnym JRE w Twoim systemie.
 
-%package jre-X11
+%package jre-base-X11
 Summary:	IcedTea6 OpenJDK - runtime environment - X11 support
 Summary(pl.UTF-8):	IcedTea6 OpenJDK - środowisko uruchomieniowe - obsługa X11
 Group:		Development/Languages/Java
 Requires:	%{name}-jre-base = %{version}-%{release}
-Requires:	%{name}-jre-freetype = %{version}-%{release}
-Provides:	jre(X11)
+Requires:	%{name}-jre-base-freetype = %{version}-%{release}
 
-%description jre-X11
+%description jre-base-X11
 X11 support for OpenJDK runtime environment built using free software
 only.
 
-%description jre-X11 -l pl.UTf-8
+%description jre-base-X11 -l pl.UTf-8
 Biblioteki X11 dla środowiska OpenJDK zbudowany wyłocznie przy uzyciu
 wolnego oprogramowania.
 
-%package jre-alsa
+%package jre-base-alsa
 Summary:	IcedTea6 OpenJDK - runtime environment - ALSA support
 Summary(pl.UTF-8):	IcedTea6 OpenJDK - środowisko uruchomieniowe - obsługa ALSA
 Group:		Development/Languages/Java
 Requires:	%{name}-jre-base = %{version}-%{release}
 
-%description jre-alsa
+%description jre-base-alsa
 ALSA sound support for OpenJDK runtime environment build using free
 software only.
 
-%description jre-alsa -l pl.UTF-8
+%description jre-base-alsa -l pl.UTF-8
 Biblioteki ALSA rozszerzające środowisko OpenJDK o obsługę dźwięku
 zbudowane przy uzyciu wyłącznie wolnego oprogramowania.
 
-%package jre-freetype
+%package jre-base-freetype
 Summary:	IcedTea6 OpenJDK - runtime environment - font support
 Summary(pl.UTF-8):	IcedTea6 OpenJDK - środowisko uruchomieniowe - obsługa fontów
 Group:		Development/Languages/Java
 Requires:	%{name}-jre-base = %{version}-%{release}
-Provides:	jre(fontmanager)
 
-%description jre-freetype
+%description jre-base-freetype
 Font handling library for OpenJDK runtime environment built using free
 software only.
 
-%description jre-freetype -l pl.UTF-8
+%description jre-base-freetype -l pl.UTF-8
 Biblioteki obsługi czcionek dla OpenJDK zbudowane wyłącznie przy
 użyciu wolnego oprogramowania.
 
-%package jre-mozilla-plugin
+%package jre-base-mozilla-plugin
 Summary:	IceTea Java plugin for WWW browsers
 Summary(pl.UTF-8):	Wtyczka Javy do przeglądarek WWW
 Group:		Development/Languages/Java
-Requires:	%{name}-jre-X11 = %{version}-%{release}
+Requires:	%{name}-jre-base-X11 = %{version}-%{release}
 
-%description jre-mozilla-plugin
+%description jre-base-mozilla-plugin
 OpenJDK Java plugin for WWW browsers built using free software only.
 
 To install this plugin automatically in PLD web browsers install
 'browser-plugin-java-%{name}' package too.
 
-%description jre-mozilla-plugin
+%description jre-base-mozilla-plugin
 Wtyczka dla przeglądarek oferująca wsparcie dla javy za pośrednictwem
 środowiska OpenJDK zbudowana wyłącznie przy użyciu wolnego
 oprogramowania.
@@ -316,7 +329,7 @@ Przykłady dla OpenJDK.
 Summary:	IceTea Java plugin for WWW browsers
 Summary(pl.UTF-8):	Wtyczka Javy do przeglądarek WWW
 Group:		Development/Languages/Java
-Requires:	%{name}-jre-mozilla-plugin = %{version}-%{release}
+Requires:	%{name}-jre-base-mozilla-plugin = %{version}-%{release}
 Requires:	browser-plugins >= 2.0
 Requires:	browser-plugins(%{_target_base_arch})
 
@@ -585,7 +598,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/keytool
 %attr(755,root,root) %{_bindir}/orbd
 %attr(755,root,root) %{_bindir}/pack200
-%attr(755,root,root) %{_bindir}/policytool
 %attr(755,root,root) %{_bindir}/rmid
 %attr(755,root,root) %{_bindir}/rmiregistry
 %attr(755,root,root) %{_bindir}/servertool
@@ -598,7 +610,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/keytool.1*
 %{_mandir}/man1/orbd.1*
 %{_mandir}/man1/pack200.1*
-%{_mandir}/man1/policytool.1*
 %{_mandir}/man1/rmid.1*
 %{_mandir}/man1/rmiregistry.1*
 %{_mandir}/man1/servertool.1*
@@ -611,7 +622,6 @@ rm -rf $RPM_BUILD_ROOT
 %lang(ja) %{_mandir}/ja/man1/keytool.1*
 %lang(ja) %{_mandir}/ja/man1/orbd.1*
 %lang(ja) %{_mandir}/ja/man1/pack200.1*
-%lang(ja) %{_mandir}/ja/man1/policytool.1*
 %lang(ja) %{_mandir}/ja/man1/rmid.1*
 %lang(ja) %{_mandir}/ja/man1/rmiregistry.1*
 %lang(ja) %{_mandir}/ja/man1/servertool.1*
@@ -733,17 +743,23 @@ rm -rf $RPM_BUILD_ROOT
 
 %files jre-X11
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/policytool
+%{_mandir}/man1/policytool.1*
+%lang(ja) %{_mandir}/ja/man1/policytool.1*
+
+%files jre-base-X11
+%defattr(644,root,root,755)
 %attr(755,root,root) %{jredir}/bin/policytool
 %attr(755,root,root) %{dstdir}/bin/policytool
 %dir %{jredir}/lib/%{jre_arch}/xawt
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/xawt/*.so
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libsplashscreen.so
 
-%files jre-alsa
+%files jre-base-alsa
 %defattr(644,root,root,755)
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libjsoundalsa.so
 
-%files jre-freetype
+%files jre-base-freetype
 %defattr(644,root,root,755)
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libfontmanager.so
 
@@ -769,7 +785,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/src/%{name}-examples
 
 %if %{with plugin}
-%files jre-mozilla-plugin
+%files jre-base-mozilla-plugin
 %defattr(644,root,root,755)
 %attr(755,root,root) %{jredir}/bin/pluginappletviewer
 %attr(755,root,root) %{dstdir}/bin/pluginappletviewer
