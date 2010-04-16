@@ -410,8 +410,8 @@ ln -sf ../jre/lib/jexec $RPM_BUILD_ROOT%{dstdir}/lib/jexec
 for config in management security content-types.properties \
 		logging.properties net.properties sound.properties ; do
 
-	mv $RPM_BUILD_ROOT%{dstdir}/lib/$config $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/$config
-	ln -s %{_sysconfdir}/%{name}/$config $RPM_BUILD_ROOT%{dstdir}/lib/$config
+	mv $RPM_BUILD_ROOT%{jredir}/lib/$config $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/$config
+	ln -s %{_sysconfdir}/%{name}/$config $RPM_BUILD_ROOT%{jredir}/lib/$config
 done
 
 %if %{with_plugin}
