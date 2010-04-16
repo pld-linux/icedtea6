@@ -63,7 +63,6 @@ BuildRequires:	xorg-proto-xproto-devel
 BuildRequires:	zip
 BuildRequires:	zlib-devel
 Requires:	%{name}-appletviewer = %{version}-%{release}
-Requires:	%{name}-jar = %{version}-%{release}
 Requires:	%{name}-jdk = %{version}-%{release}
 Obsoletes:	java-gcj-compat
 Obsoletes:	java-gcj-compat-devel
@@ -117,6 +116,7 @@ wszystkie komponenty IcedTea6, w tym środowisko programistyczne
 Summary:	OpenJDK and GNU Classpath code - software development kit
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - środowisko programistyczne
 Group:		Development/Languages/Java
+Requires:	%{name}-jar = %{version}-%{release}
 Requires:	%{name}-jdk-base = %{version}-%{release}
 Requires:	%{name}-jre = %{version}-%{release}
 Provides:	j2sdk = %{_jdkversion}
@@ -450,7 +450,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/apt
 %attr(755,root,root) %{_bindir}/extcheck
 %attr(755,root,root) %{_bindir}/idlj
-%attr(755,root,root) %{_bindir}/jar
 %attr(755,root,root) %{_bindir}/jarsigner
 %attr(755,root,root) %{_bindir}/java-rmi.cgi
 %attr(755,root,root) %{_bindir}/javac
