@@ -75,7 +75,7 @@ Obsoletes:	java-sun-jre-jdbc
 Obsoletes:	java-sun-sources
 Obsoletes:	java-sun-tools
 # redudant with the same in %{name}-jre, but seems needed for clean java-sun replacement
-Suggests:	browser-plugin-java-%{name} = %{version}-%{release}
+Suggests:	browser-plugin-java-%{name}
 Obsoletes:	java-sun-jre
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -157,9 +157,8 @@ Summary:	OpenJDK and GNU Classpath code - runtime environment
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - środowisko uruchomieniowe
 Group:		Development/Languages/Java
 Requires:	%{name}-jre-base = %{version}-%{release}
-Suggests:	%{name}-jre-X11 = %{version}-%{release}
-Suggests:	%{name}-jre-freetype = %{version}-%{release}
-Suggests:	%{name}-jre-freetype = %{version}-%{release}
+Suggests:	%{name}-jre-X11
+Suggests:	%{name}-jre-freetype
 Provides:	j2re = %{_jdkversion}
 Provides:	java
 Provides:	java1.4
