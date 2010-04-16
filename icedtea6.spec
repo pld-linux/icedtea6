@@ -92,6 +92,9 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		jre_arch	i386
 %endif
 
+# to break artificial subpackage dependency loops
+%define		_noautoreq	'libmawt.so' 'java(ClassDataVersion)'
+
 %description
 The IcedTea project provides a harness to build the source code from
 http://openjdk.java.net/ using Free Software build tools and provides
@@ -158,6 +161,7 @@ Group:		Development/Languages/Java
 Requires:	%{name}-jre-base = %{version}-%{release}
 Provides:	j2re = %{_jdkversion}
 Provides:	java
+Provides:	java(ClassDataVersion) = %{_classdataversion}
 Provides:	java1.4
 Provides:	jre = %{_jdkversion}
 Obsoletes:	jre
@@ -194,7 +198,6 @@ Summary:	OpenJDK and GNU Classpath code - runtime environment
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - środowisko uruchomieniowe
 Group:		Development/Languages/Java
 Requires:	jpackage-utils >= 0:1.6.6-14
-Provides:	java(ClassDataVersion) = %{_classdataversion}
 
 %description jre-base
 OpenJDK runtime environment built using free software only.
