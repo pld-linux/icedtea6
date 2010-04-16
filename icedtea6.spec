@@ -192,6 +192,7 @@ Summary(pl.UTF-8):	IcedTea6 OpenJDK - środowisko uruchomieniowe - obsługa X11
 Group:		Development/Languages/Java
 Requires:	%{name}-jre-base = %{version}-%{release}
 Requires:	%{name}-jre-freetype = %{version}-%{release}
+Provides:	jre(X11)
 
 %description jre-X11
 X11 support for OpenJDK runtime environment built using free software
@@ -220,6 +221,7 @@ Summary:	IcedTea6 OpenJDK - runtime environment - font support
 Summary(pl.UTF-8):	IcedTea6 OpenJDK - środowisko uruchomieniowe - obsługa fontów
 Group:		Development/Languages/Java
 Requires:	%{name}-jre-base = %{version}-%{release}
+Provides:	jre(fontmanager)
 
 %description jre-freetype
 Font handling library for OpenJDK runtime environment built using free
@@ -571,7 +573,9 @@ rm -rf $RPM_BUILD_ROOT
 %{dstdir}/lib/jconsole.jar
 %attr(755,root,root) %{dstdir}/lib/jexec
 %{dstdir}/lib/orb.idl
+%ifnarch i486
 %{dstdir}/lib/sa-jdi.jar
+%endif
 %{dstdir}/lib/tools.jar
 
 %files jre
@@ -650,7 +654,7 @@ rm -rf $RPM_BUILD_ROOT
 %{jredir}/lib/cmm
 %{jredir}/lib/ext
 %dir %{jredir}/lib/%{jre_arch}
-%ifnarch x86_64
+%ifnarch x86_64 i486
 %dir %{jredir}/lib/%{jre_arch}/client
 %{jredir}/lib/%{jre_arch}/client/Xusage.txt
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/client/*.so
@@ -689,7 +693,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libnio.so
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libnpt.so
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/librmi.so
+%ifnarch i486
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libsaproc.so
+%endif
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libunpack.so
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libverify.so
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libzip.so
