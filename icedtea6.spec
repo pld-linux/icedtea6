@@ -389,6 +389,9 @@ export PATH="$JAVA_HOME/bin:$PATH"
 # Cannot do that as patch, as the sources are prepared by make
 %{__sed} -i -e's/CORBA_BUILD_ARGUMENTS = \\/CORBA_BUILD_ARGUMENTS = JVMLIB="" \\/' openjdk-ecj/make/corba-rules.gmk
 %endif
+# if dpkg-architecure is installed (like on carme) it will break the build
+# unless we disable using it somehow. As patching is difficult here:
+sed -i -e's/dpkg-architecture/dpkg-architecture__/' openjdk*/jdk/make/common/shared/Platform.gmk
 
 %{__make} -j1 \
 	PRINTF=/bin/printf
