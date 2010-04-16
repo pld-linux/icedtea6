@@ -26,6 +26,7 @@ Source3:	http://kenai.com/projects/jdk6-drops/downloads/download/jdk6-jaf-2009_1
 Source4:	https://jaxp.dev.java.net/files/documents/913/147329/jdk6-jaxp-2009_10_13.zip
 # Source4-md5:	a2f7b972124cd776ff71e7754eb9a429
 Patch0:		%{name}-i486.patch
+Patch1:		%{name}-ecj_single_thread.patch
 URL:		http://icedtea.classpath.org/wiki/Main_Page
 BuildRequires:	alsa-lib-devel
 %{!?with_bootstrap:BuildRequires:	ant-nodeps}
@@ -348,6 +349,9 @@ Wtyczka z obsługą Javy dla przeglądarek WWW.
 %setup -q
 %patch0 -p1
 
+# workaround for an ECJ bug
+%patch1 -p1
+
 # let the build system extract the sources where it wants them
 mkdir drops
 ln -s %{SOURCE1} .
@@ -391,7 +395,7 @@ export PATH="$JAVA_HOME/bin:$PATH"
 %endif
 # if dpkg-architecure is installed (like on carme) it will break the build
 # unless we disable using it somehow. As patching is difficult here:
-sed -i -e's/dpkg-architecture/dpkg-architecture__/' openjdk*/jdk/make/common/shared/Platform.gmk
+sed -i -e's/dpkg-architecture/dpkg-architecture__/' openjdk*/*/make/common/shared/Platform.gmk
 
 %{__make} -j1 \
 	PRINTF=/bin/printf

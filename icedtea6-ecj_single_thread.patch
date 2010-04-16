@@ -1,0 +1,10 @@
+--- icedtea6-1.8/javac.in.orig	2010-03-25 15:10:41.000000000 +0100
++++ icedtea6-1.8/javac.in	2010-04-16 18:23:37.258022591 +0200
+@@ -36,6 +36,6 @@
+     @ECJ@ -1.5 -nowarn $bcoption $NEW_ARGS
+ else
+     CLASSPATH=@ECJ_JAR@${CLASSPATH:+:}$CLASSPATH \
+-     @JAVA@ org.eclipse.jdt.internal.compiler.batch.Main -1.5 -nowarn $bcoption $NEW_ARGS
++     @JAVA@ -Djdt.compiler.useSingleThread=true org.eclipse.jdt.internal.compiler.batch.Main -1.5 -nowarn $bcoption $NEW_ARGS
+ fi
+ 
