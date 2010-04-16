@@ -5,7 +5,7 @@
        ARCHFLAG="-m64"
        ;;
 +    i486)
-+      BUILD_ARCH_DIR=i486
++      BUILD_ARCH_DIR=i586
 +      INSTALL_ARCH_DIR=i386
 +      JRE_ARCH_DIR=i386
 +      ARCH_PREFIX=${LINUX32}
