@@ -356,7 +356,12 @@ ln -s %{SOURCE3} drops
 ln -s %{SOURCE4} drops
 
 %build
-unset JAVA_HOME || :
+%if %{with bootstrap}
+export JAVA_HOME=%{_gcj_home}
+%else
+export JAVA_HOME=%{_jvmdir}/icedtea6
+%endif
+export PATH="$JAVA_HOME/bin:$PATH"
 
 %{__aclocal}
 %{__autoconf}
