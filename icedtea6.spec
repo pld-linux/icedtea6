@@ -128,14 +128,15 @@ Obsoletes:	jdk
 Obsoletes:	kaffe
 
 %description jdk
-This package symlinks OpenJDK development tools provided by %{name}-jdk-base
-to system-wide directories like %{_bindir}, making IcedTea6 default JDK.
+This package symlinks OpenJDK development tools provided by
+%{name}-jdk-base to system-wide directories like %{_bindir}, making
+IcedTea6 default JDK.
 
 %description jdk -l pl.UTF-8
 Ten pakiet tworzy symboliczne dowiązania do narzędzi programistycznych
 OpenJDK, dostarczanych przez pakiet %{name}-jdk-base, w standardowych
-systemowych ścieżkach takich jak %{_bindir}, sprawiając tym samym, że IcedTea6
-staje się domyślnym JDK w systemie.
+systemowych ścieżkach takich jak %{_bindir}, sprawiając tym samym, że
+IcedTea6 staje się domyślnym JDK w systemie.
 
 %package jdk-base
 Summary:	OpenJDK and GNU Classpath code - software development kit
@@ -164,14 +165,14 @@ Obsoletes:	jre
 
 %description jre
 This package symlinks OpenJDK runtime environment tools provided by
-%{name}-jre-base to system-wide directories like %{_bindir}, making IcedTea6
-default JRE.
+%{name}-jre-base to system-wide directories like %{_bindir}, making
+IcedTea6 default JRE.
 
 %description jre -l pl.UTF-8
-Ten pakiet tworzy symboliczne dowiązania do środowiska uruchomieniowego
-OpenJDK, dostarczanych przez pakiet %{name}-jre-base, w standardowych
-systemowych ścieżkach takich jak %{_bindir}, sprawiając tym samym, że IcedTea6
-staje się domyślnym JRE w systemie.
+Ten pakiet tworzy symboliczne dowiązania do środowiska
+uruchomieniowego OpenJDK, dostarczanych przez pakiet %{name}-jre-base,
+w standardowych systemowych ścieżkach takich jak %{_bindir},
+sprawiając tym samym, że IcedTea6 staje się domyślnym JRE w systemie.
 
 %package jre-X11
 Summary:	IcedTea6 OpenJDK - runtime environment - X11 support
