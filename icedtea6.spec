@@ -1,4 +1,7 @@
-#
+# TODO:
+# - fix IcedTeaPlugin.so web browser plugin, so it have proper
+#   rpath to libdir/xulrunner (to be able to use get libxul.so and  libxpcom.so libraries)
+
 %bcond_without bootstrap	# don't use gcj, use an installed icedtea6 instead
 %bcond_without plugin		# don't build browser plugin
 
