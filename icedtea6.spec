@@ -163,12 +163,31 @@ Summary:	OpenJDK and GNU Classpath code - runtime environment
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - środowisko uruchomieniowe
 Group:		Development/Languages/Java
 Requires:	%{name}-jre-base = %{version}-%{release}
-Provides:	j2re = %{_jdkversion}
 Provides:	java
 Provides:	java(ClassDataVersion) = %{_classdataversion}
+Provides:	java(jaas) = %{version}
+Provides:	java(jaf) = 1.1.1
+Provides:	java(jaxp) = 1.3
+Provides:	java(jaxp_parser_impl)
+Provides:	java(jce) = %{version}
+Provides:	java(jdbc-stdext) = %{version}
+Provides:	java(jdbc-stdext) = 3.0
+Provides:	java(jmx) = 1.4
+Provides:	java(jndi) = %{version}
+Provides:	java(jsse) = %{version}
 Provides:	java1.4
 Provides:	jre = %{_jdkversion}
 Obsoletes:	jre
+Obsoletes:	java(jaas)
+Obsoletes:	java(jaf)
+Obsoletes:	java(jaxp)
+Obsoletes:	java(jaxp_parser_impl)
+Obsoletes:	java(jce)
+Obsoletes:	java(jdbc-stdext)
+Obsoletes:	java(jdbc-stdext)
+Obsoletes:	java(jmx)
+Obsoletes:	java(jndi)
+Obsoletes:	java(jsse)
 
 %description jre
 This package symlinks OpenJDK runtime environment tools provided by
