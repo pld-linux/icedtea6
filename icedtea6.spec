@@ -52,7 +52,7 @@ BuildRequires:	java-xerces
 BuildRequires:	libffi-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
-BuildRequires:	libstdc++-devel
+BuildRequires:	libstdc++-static
 BuildRequires:	nss-devel
 BuildRequires:	rpmbuild(macros) >= 1.364
 BuildRequires:	unzip
