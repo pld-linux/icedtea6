@@ -472,7 +472,7 @@ for config in management security content-types.properties \
 	ln -s %{_sysconfdir}/%{name}/$config $RPM_BUILD_ROOT%{jredir}/lib/$config
 done
 
-%if %{with_plugin}
+%if %{with plugin}
 ln -s %{jredir}/lib/%{jre_arch}/IcedTeaPlugin.so $RPM_BUILD_ROOT%{_browserpluginsdir}
 %endif
 
