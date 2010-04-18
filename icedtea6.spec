@@ -345,7 +345,7 @@ i został zbudowany wyłącznie przy użyciu wolnego oprogramowania.
 %package jdk-sources
 Summary:	OpenJDK and GNU Classpath code - sources
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - kod źródłowy
-Group:		Development/Languages/Java
+Group:		Documentation
 
 %description jdk-sources
 Source code for the OpenJDK development kit and Java standard library.
@@ -357,7 +357,7 @@ biblioteki Javy.
 %package examples
 Summary:	OpenJDK and GNU Classpath code - examples
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - przykłady
-Group:		Development/Languages/Java
+Group:		Documentation
 
 %description examples
 Code examples for OpenJDK.
@@ -440,7 +440,7 @@ sed -i -e's/dpkg-architecture/dpkg-architecture__/' openjdk*/*/make/common/share
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{dstdir},%{_mandir}/ja,%{_browserpluginsdir}} \
-	$RPM_BUILD_ROOT{%{jvmjardir},%{_prefix}/src/%{name}-{jdk-sources,examples}} \
+	$RPM_BUILD_ROOT{%{jvmjardir},%{_examplesdir}/%{name}-%{version},%{_javasrcdir}} \
 	$RPM_BUILD_ROOT%{_sysconfdir}/%{name}
 
 # install the 'JDK image', it contains the JRE too
@@ -450,10 +450,10 @@ cp -a openjdk/build/linux-*/j2sdk-image/* $RPM_BUILD_ROOT%{dstdir}
 ln -s %{dstreldir} $RPM_BUILD_ROOT%{_jvmdir}/%{name}
 ln -s %{jrereldir} $RPM_BUILD_ROOT%{_jvmdir}/%{name}-jre
 
-# move JDK sources and demo to %{_prefix}/src
-mv $RPM_BUILD_ROOT%{dstdir}/demo $RPM_BUILD_ROOT%{_prefix}/src/%{name}-examples/
-mv $RPM_BUILD_ROOT%{dstdir}/sample $RPM_BUILD_ROOT%{_prefix}/src/%{name}-examples/
-mv $RPM_BUILD_ROOT%{dstdir}/src.zip $RPM_BUILD_ROOT%{_prefix}/src/%{name}-jdk-sources/
+# move JDK sources and demo to /usr/src
+mv $RPM_BUILD_ROOT%{dstdir}/demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+mv $RPM_BUILD_ROOT%{dstdir}/sample $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+mv $RPM_BUILD_ROOT%{dstdir}/src.zip $RPM_BUILD_ROOT%{_javasrcdir}/%{name}-jdk.zip
 
 # move manual pages to its place
 mv $RPM_BUILD_ROOT%{dstdir}/man/ja_JP.eucJP/man1 $RPM_BUILD_ROOT%{_mandir}/ja/man1
@@ -829,12 +829,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files jdk-sources
 %defattr(644,root,root,755)
-%dir %{_prefix}/src/%{name}-jdk-sources
-%{_prefix}/src/%{name}-jdk-sources/src.zip
+%{_javasrcdir}/%{name}-jdk.zip
 
 %files examples
 %defattr(644,root,root,755)
-%{_prefix}/src/%{name}-examples
+%{_examplesdir}/%{name}-%{version}
 
 %if %{with plugin}
 %files jre-base-mozilla-plugin
