@@ -57,6 +57,7 @@ BuildRequires:	libstdc++-static
 %{?with_nss:BuildRequires:	nss-devel}
 BuildRequires:	rpmbuild(macros) >= 1.364
 BuildRequires:	unzip
+BuildRequires:	wget
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXp-devel
