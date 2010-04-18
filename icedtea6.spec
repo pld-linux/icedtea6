@@ -4,6 +4,7 @@
 
 %bcond_without bootstrap	# don't use gcj, use an installed icedtea6 instead
 %bcond_without plugin		# don't build browser plugin
+%bcond_without nss		# don't use NSS
 
 # class data version seen with file(1) that this jvm is able to load
 %define		_classdataversion 50.0
@@ -53,7 +54,7 @@ BuildRequires:	libffi-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-static
-BuildRequires:	nss-devel
+%{?with_nss:BuildRequires:	nss-devel}
 BuildRequires:	rpmbuild(macros) >= 1.364
 BuildRequires:	unzip
 BuildRequires:	xorg-lib-libX11-devel
@@ -410,6 +411,7 @@ export PATH="$JAVA_HOME/bin:$PATH"
 %else
 	--disable-plugin \
 %endif
+	%{!?with_nss:--disable-nss} \
 	--with-xalan2-jar=%{_javadir}/xalan.jar \
 	--with-xalan2-serializer-jar=%{_javadir}/serializer.jar \
 	--with-rhino=%{_javadir}/js.jar
