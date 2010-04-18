@@ -6,6 +6,12 @@
 %bcond_without plugin		# don't build browser plugin
 %bcond_without nss		# don't use NSS
 
+%if %{with bootstrap}
+%define		use_jdk	java-gcj-compat
+%else
+%define		use_jdk	icedtea6
+%endif
+
 # class data version seen with file(1) that this jvm is able to load
 %define		_classdataversion 50.0
 # JDK/JRE version, as returned with `java -version`, '_' replaced with '.'
@@ -40,7 +46,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bash
 BuildRequires:	cups-devel
-BuildRequires:	fastjar
+BuildRequires:	/usr/bin/jar
 BuildRequires:	freetype-devel >= 2.3
 BuildRequires:	gawk
 %{?with_bootstrap:BuildRequires:	gcc-java >= 6:4.3}
@@ -48,11 +54,10 @@ BuildRequires:	giflib-devel
 BuildRequires:	glib2-devel
 BuildRequires:	glibc-misc
 BuildRequires:	gtk+2-devel
-%{!?with_bootstrap:BuildRequires:	icedtea6-jdk-base}
-%{?with_bootstrap:BuildRequires:	java-gcj-compat-devel-base}
 BuildRequires:	java-rhino
 BuildRequires:	java-xalan
 BuildRequires:	java-xerces
+%buildrequires_jdk
 BuildRequires:	libffi-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
@@ -60,7 +65,7 @@ BuildRequires:	libstdc++-static
 BuildRequires:	lsb-release
 %{?with_nss:BuildRequires:	nss-devel}
 BuildRequires:	pkgconfig
-BuildRequires:	rpmbuild(macros) >= 1.364
+BuildRequires:	rpmbuild(macros) >= 1.556
 BuildRequires:	unzip
 BuildRequires:	util-linux
 BuildRequires:	xorg-lib-libX11-devel
@@ -89,8 +94,6 @@ Obsoletes:	java-sun-jre-jdbc
 Obsoletes:	java-sun-sources
 Obsoletes:	java-sun-tools
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		_gcj_home	/usr/%{_lib}/java/java-1.5.0-gcj-1.5.0.0
 
 %define		dstreldir	%{name}-%{version}
 %define		dstdir		%{_jvmdir}/%{dstreldir}
@@ -394,11 +397,7 @@ ln -s %{SOURCE3} drops
 ln -s %{SOURCE4} drops
 
 %build
-%if %{with bootstrap}
-export JAVA_HOME=%{_gcj_home}
-%else
-export JAVA_HOME=%{_jvmdir}/icedtea6
-%endif
+export JAVA_HOME=%{java_home}
 export PATH="$JAVA_HOME/bin:$PATH"
 
 %{__aclocal}
@@ -408,10 +407,10 @@ export PATH="$JAVA_HOME/bin:$PATH"
 %configure \
 	WGET=%{_bindir}/wget \
 %if %{with bootstrap}
-	--with-gcj-home=%{_gcj_home} \
+	--with-gcj-home=%{java_home} \
 	--with-ecj-jar=%{_javadir}/ecj.jar \
 %else
-	--with-openjdk=%{_jvmdir}/icedtea6 \
+	--with-openjdk=%{java_home} \
 %endif
 %if %{with plugin}
 	--enable-plugin \
