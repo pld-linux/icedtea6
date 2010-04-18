@@ -40,10 +40,13 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bash
 BuildRequires:	cups-devel
+BuildRequires:	fastjar
 BuildRequires:	freetype-devel >= 2.3
+BuildRequires:	gawk
 %{?with_bootstrap:BuildRequires:	gcc-java >= 6:4.3}
 BuildRequires:	giflib-devel
 BuildRequires:	glib2-devel
+BuildRequires:	glibc-misc
 BuildRequires:	gtk+2-devel
 %{!?with_bootstrap:BuildRequires:	icedtea6-jdk-base}
 %{?with_bootstrap:BuildRequires:	java-gcj-compat-devel-base}
@@ -54,10 +57,12 @@ BuildRequires:	libffi-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-static
+BuildRequires:	lsb-release
 %{?with_nss:BuildRequires:	nss-devel}
+BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.364
 BuildRequires:	unzip
-BuildRequires:	wget
+BuildRequires:	util-linux
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXp-devel
@@ -69,20 +74,20 @@ BuildRequires:	xorg-proto-xproto-devel
 %{?with_plugin:BuildRequires:	xulrunner-devel}
 BuildRequires:	zip
 BuildRequires:	zlib-devel
-Suggests:	browser-plugin-java-%{name}
 Requires:	%{name}-appletviewer = %{version}-%{release}
 Requires:	%{name}-jdk = %{version}-%{release}
 Suggests:	%{name}-jre-X11
+Suggests:	browser-plugin-java-%{name}
 Obsoletes:	java-gcj-compat
 Obsoletes:	java-gcj-compat-devel
 Obsoletes:	java-sun
 Obsoletes:	java-sun-demos
+Obsoletes:	java-sun-jre
 Obsoletes:	java-sun-jre-X11
 Obsoletes:	java-sun-jre-alsa
 Obsoletes:	java-sun-jre-jdbc
 Obsoletes:	java-sun-sources
 Obsoletes:	java-sun-tools
-Obsoletes:	java-sun-jre
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_gcj_home	/usr/%{_lib}/java/java-1.5.0-gcj-1.5.0.0
@@ -181,7 +186,6 @@ Provides:	java(jndi) = %{version}
 Provides:	java(jsse) = %{version}
 Provides:	java1.4
 Provides:	jre = %{_jdkversion}
-Obsoletes:	jre
 Obsoletes:	java(jaas)
 Obsoletes:	java(jaf)
 Obsoletes:	java(jaxp)
@@ -192,6 +196,7 @@ Obsoletes:	java(jdbc-stdext)
 Obsoletes:	java(jmx)
 Obsoletes:	java(jndi)
 Obsoletes:	java(jsse)
+Obsoletes:	jre
 
 %description jre
 This package symlinks OpenJDK runtime environment tools provided by
@@ -401,6 +406,7 @@ export PATH="$JAVA_HOME/bin:$PATH"
 %{__automake}
 
 %configure \
+	WGET=%{_bindir}/wget \
 %if %{with bootstrap}
 	--with-gcj-home=%{_gcj_home} \
 	--with-ecj-jar=%{_javadir}/ecj.jar \
