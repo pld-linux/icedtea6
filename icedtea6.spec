@@ -151,6 +151,7 @@ Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - środowisko programistyczne
 Group:		Development/Languages/Java
 Requires:	%{name}-jre-base = %{version}-%{release}
 Requires:	jpackage-utils >= 0:1.6.6-14
+Provides:	jdk(%{name})
 
 %description jdk-base
 OpenJDK development tools built using free software only.
@@ -221,6 +222,7 @@ Summary:	OpenJDK and GNU Classpath code - runtime environment
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - środowisko uruchomieniowe
 Group:		Development/Languages/Java
 Requires:	jpackage-utils >= 0:1.6.6-14
+Provides:	jre(%{name})
 
 %description jre-base
 OpenJDK runtime environment built using free software only.
