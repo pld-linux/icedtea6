@@ -738,7 +738,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libjpeg.so
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libjsig.so
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libjsound.so
-%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libjsoundalsa.so
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/liblcms.so
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libmanagement.so
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libmlib_image.so
