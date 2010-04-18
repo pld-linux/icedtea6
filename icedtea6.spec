@@ -59,6 +59,7 @@ BuildRequires:	unzip
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXp-devel
+BuildRequires:	xorg-lib-libXrender-devel
 BuildRequires:	xorg-lib-libXt-devel
 BuildRequires:	xorg-lib-libXtst-devel
 BuildRequires:	xorg-proto-printproto-devel
