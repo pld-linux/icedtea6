@@ -1,0 +1,10 @@
+--- icedtea6-1.8/Makefile.am~	2010-04-12 23:55:51.754838172 +0200
++++ icedtea6-1.8/Makefile.am	2010-04-18 20:37:41.955980316 +0200
+@@ -1546,6 +1546,7 @@
+ 	  $(GLIB_LIBS) \
+ 	  $(GTK_LIBS) \
+ 	  $(MOZILLA_LIBS)\
++	  -Wl,-rpath,$(libdir)/xulrunner \
+ 	  -shared -o $@
+ 
+ clean-IcedTeaPlugin:

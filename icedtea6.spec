@@ -1,6 +1,3 @@
-# TODO:
-# - fix IcedTeaPlugin.so web browser plugin, so it have proper
-#   rpath to libdir/xulrunner (to be able to use get libxul.so and  libxpcom.so libraries)
 
 %bcond_without bootstrap	# don't use gcj, use an installed icedtea6 instead
 %bcond_without plugin		# don't build browser plugin
@@ -21,7 +18,7 @@ Summary:	OpenJDK and GNU Classpath code
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath
 Name:		icedtea6
 Version:	1.8
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		Development/Languages/Java
 Source0:	http://icedtea.classpath.org/download/source/%{name}-%{version}.tar.gz
@@ -38,6 +35,7 @@ Source4:	https://jaxp.dev.java.net/files/documents/913/147329/jdk6-jaxp-2009_10_
 Patch0:		%{name}-i486.patch
 Patch1:		%{name}-ecj_single_thread.patch
 Patch2:		%{name}-no_dtdtype_patch.patch
+Patch3:		%{name}-rpath.patch
 URL:		http://icedtea.classpath.org/wiki/Main_Page
 BuildRequires:	alsa-lib-devel
 %{!?with_bootstrap:BuildRequires:	ant-nodeps}
@@ -388,6 +386,9 @@ Wtyczka z obsługą Javy dla przeglądarek WWW.
 %patch1 -p1
 
 %patch2 -p1
+
+# rpath so IcedTeaPlugin.so can find libxul.so and libxpcom.so
+%patch3 -p1
 
 # let the build system extract the sources where it wants them
 mkdir drops
