@@ -13,13 +13,12 @@
 %define		_classdataversion 50.0
 # JDK/JRE version, as returned with `java -version`, '_' replaced with '.'
 %define		_jdkversion 1.6.0.18
-%define		rel	4
 
 Summary:	OpenJDK and GNU Classpath code
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath
 Name:		icedtea6
 Version:	1.8
-Release:	%{bootstrap_release %rel}
+Release:	4
 License:	GPL v2
 Group:		Development/Languages/Java
 Source0:	http://icedtea.classpath.org/download/source/%{name}-%{version}.tar.gz
