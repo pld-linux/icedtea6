@@ -18,7 +18,7 @@ Summary:	OpenJDK and GNU Classpath code
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath
 Name:		icedtea6
 Version:	1.8
-Release:	4
+Release:	5
 License:	GPL v2
 Group:		Development/Languages/Java
 Source0:	http://icedtea.classpath.org/download/source/%{name}-%{version}.tar.gz
@@ -81,15 +81,19 @@ Requires:	%{name}-appletviewer = %{version}-%{release}
 Requires:	%{name}-jdk = %{version}-%{release}
 Suggests:	%{name}-jre-X11
 Suggests:	browser-plugin-java-%{name}
+Obsoletes:	java5-sun
+Obsoletes:	java5-sun-jre
+Obsoletes:	java5-sun-jre-jdbc
+Obsoletes:	java5-sun-jre-X11
+Obsoletes:	java5-sun-tools
 Obsoletes:	java-gcj-compat
 Obsoletes:	java-gcj-compat-devel
 Obsoletes:	java-sun
 Obsoletes:	java-sun-demos
 Obsoletes:	java-sun-jre
-Obsoletes:	java-sun-jre-X11
 Obsoletes:	java-sun-jre-alsa
 Obsoletes:	java-sun-jre-jdbc
-Obsoletes:	java-sun-sources
+Obsoletes:	java-sun-jre-X11
 Obsoletes:	java-sun-tools
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -139,7 +143,10 @@ Provides:	j2sdk = %{_jdkversion}
 Provides:	jdk = %{_jdkversion}
 Obsoletes:	blackdown-java-sdk
 Obsoletes:	ibm-java
+Obsoletes:	java5-sun
 Obsoletes:	java-blackdown
+Obsoletes:	java-gcj-compat-devel
+Obsoletes:	java-sun
 Obsoletes:	jdk
 Obsoletes:	kaffe
 
@@ -187,6 +194,7 @@ Provides:	java(jndi) = %{version}
 Provides:	java(jsse) = %{version}
 Provides:	java1.4
 Provides:	jre = %{_jdkversion}
+Obsoletes:	java5-sun-jre
 Obsoletes:	java(jaas)
 Obsoletes:	java(jaf)
 Obsoletes:	java(jaxp)
@@ -197,6 +205,8 @@ Obsoletes:	java(jdbc-stdext)
 Obsoletes:	java(jmx)
 Obsoletes:	java(jndi)
 Obsoletes:	java(jsse)
+Obsoletes:	java-gcj-compat
+Obsoletes:	java-sun-jre
 Obsoletes:	jre
 
 %description jre
