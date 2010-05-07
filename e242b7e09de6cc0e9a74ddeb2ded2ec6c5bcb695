@@ -1,0 +1,3 @@
+- more obsoletes for clean poldek upgrade
+- do not obsolete sources. sources package from different JDKs may coexist
+- rel 5
