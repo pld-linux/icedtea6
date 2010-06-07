@@ -18,7 +18,7 @@ Summary:	OpenJDK and GNU Classpath code
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath
 Name:		icedtea6
 Version:	1.8
-Release:	5
+Release:	6
 License:	GPL v2
 Group:		Development/Languages/Java
 Source0:	http://icedtea.classpath.org/download/source/%{name}-%{version}.tar.gz
@@ -36,6 +36,7 @@ Patch0:		%{name}-i486.patch
 Patch1:		%{name}-ecj_single_thread.patch
 Patch2:		%{name}-no_dtdtype_patch.patch
 Patch3:		%{name}-rpath.patch
+Patch4:		%{name}-libpath.patch
 URL:		http://icedtea.classpath.org/wiki/Main_Page
 BuildRequires:	alsa-lib-devel
 %{!?with_bootstrap:BuildRequires:	ant-nodeps}
@@ -399,6 +400,8 @@ Wtyczka z obsługą Javy dla przeglądarek WWW.
 
 # rpath so IcedTeaPlugin.so can find libxul.so and libxpcom.so
 %patch3 -p1
+
+%patch4 -p1
 
 # let the build system extract the sources where it wants them
 mkdir drops

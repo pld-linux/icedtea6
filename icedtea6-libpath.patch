@@ -1,0 +1,14 @@
+--- icedtea6-1.8/patches/hotspot/original/icedtea-6778662-lib64.patch.orig	2010-06-07 11:05:44.906948049 +0200
++++ icedtea6-1.8/patches/hotspot/original/icedtea-6778662-lib64.patch	2010-06-07 11:06:24.229865044 +0200
+@@ -7,9 +7,9 @@
+ -#define DEFAULT_LIBPATH	"/lib:/usr/lib"
+ +
+ +#if defined(AMD64) || defined(_LP64) && (defined(PPC) || defined(S390))
+-+#define DEFAULT_LIBPATH "/usr/lib64:/lib64:/lib:/usr/lib"
+++#define DEFAULT_LIBPATH "/usr/lib64/java:/usr/lib64:/lib64:/lib:/usr/lib"
+ +#else
+-+#define DEFAULT_LIBPATH	"/lib:/usr/lib"
+++#define DEFAULT_LIBPATH	"/usr/lib/java:/lib:/usr/lib"
+ +#endif
+  
+  #define EXTENSIONS_DIR	"/lib/ext"
