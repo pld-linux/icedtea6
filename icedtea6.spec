@@ -411,6 +411,12 @@ ln -s %{SOURCE3} drops
 ln -s %{SOURCE4} drops
 
 %build
+# Make sure we have /proc mounted - otherwise idlc will fail later.
+if [ ! -f /proc/self/stat ]; then
+	echo "You need to have /proc mounted in order to build this package!"
+	exit 1
+fi
+
 export JAVA_HOME=%{java_home}
 export PATH="$JAVA_HOME/bin:$PATH"
 
