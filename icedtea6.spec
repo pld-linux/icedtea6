@@ -1,3 +1,6 @@
+# TODO:
+# - install .ttf fonts (same as in sun-java-base-jre-X11 package) or configure
+#   it to use system fonts (is it possible?).
 
 %bcond_without bootstrap	# don't use gcj, use an installed icedtea6 instead
 %bcond_without plugin		# don't build browser plugin
