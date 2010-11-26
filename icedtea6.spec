@@ -2,7 +2,7 @@
 # - install .ttf fonts (same as in sun-java-base-jre-X11 package) or configure
 #   it to use system fonts (is it possible?).
 
-%bcond_without bootstrap	# don't use gcj, use an installed icedtea6 instead
+%bcond_with bootstrap	# don't use gcj, use an installed icedtea6 instead
 %bcond_without plugin		# don't build browser plugin
 %bcond_without nss		# don't use NSS
 
@@ -20,12 +20,12 @@
 Summary:	OpenJDK and GNU Classpath code
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath
 Name:		icedtea6
-Version:	1.8
-Release:	6
+Version:	1.8.3
+Release:	0.1
 License:	GPL v2
 Group:		Development/Languages/Java
 Source0:	http://icedtea.classpath.org/download/source/%{name}-%{version}.tar.gz
-# Source0-md5:	e08dd0762749fb50ec6c273c366ee8ae
+# Source0-md5:	879bdc0160da9e0d0210bda75c8f6054
 # following sources should match those in Makefile.am
 Source1:	http://download.java.net/openjdk/jdk6/promoted/b18/openjdk-6-src-b18-16_feb_2010.tar.gz
 # Source1-md5:	94db01691ab38f98b7d42b2ebf4d5c0b
