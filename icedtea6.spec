@@ -21,7 +21,7 @@ Summary:	OpenJDK and GNU Classpath code
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath
 Name:		icedtea6
 Version:	1.8.3
-Release:	0.1
+Release:	1
 License:	GPL v2
 Group:		Development/Languages/Java
 Source0:	http://icedtea.classpath.org/download/source/%{name}-%{version}.tar.gz
@@ -40,6 +40,7 @@ Patch1:		%{name}-ecj_single_thread.patch
 Patch2:		%{name}-no_dtdtype_patch.patch
 Patch3:		%{name}-rpath.patch
 Patch4:		%{name}-libpath.patch
+Patch5:		%{name}-system_tray.patch
 URL:		http://icedtea.classpath.org/wiki/Main_Page
 BuildRequires:	alsa-lib-devel
 %{!?with_bootstrap:BuildRequires:	ant-nodeps}
@@ -394,6 +395,7 @@ Wtyczka z obsługą Javy dla przeglądarek WWW.
 
 %prep
 %setup -q
+
 %patch0 -p1
 
 # workaround for an ECJ bug
@@ -405,6 +407,10 @@ Wtyczka z obsługą Javy dla przeglądarek WWW.
 %patch3 -p1
 
 %patch4 -p1
+
+# patches to applied to the extracted sources
+mkdir -p pld-patches
+cp "%{PATCH5}" pld-patches
 
 # let the build system extract the sources where it wants them
 mkdir drops
@@ -445,7 +451,8 @@ export PATH="$JAVA_HOME/bin:$PATH"
 	--with-xalan2-serializer-jar=%{_javadir}/serializer.jar \
 	--with-rhino=%{_javadir}/js.jar
 
-%{__make} extract extract-ecj
+%{__make} extract extract-ecj \
+	DISTRIBUTION_PATCHES="$(echo pld-patches/*.patch)"
 
 %if %{with bootstrap}
 # Cannot do that as patch, as the sources are prepared by make
@@ -456,6 +463,7 @@ export PATH="$JAVA_HOME/bin:$PATH"
 sed -i -e's/dpkg-architecture/dpkg-architecture__/' openjdk*/*/make/common/shared/Platform.gmk
 
 %{__make} -j1 \
+	DISTRIBUTION_PATCHES="$(echo pld-patches/*.patch)" \
 	PRINTF=/bin/printf
 
 %install
