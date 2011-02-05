@@ -310,7 +310,7 @@ OpenJDK Java plugin for WWW browsers built using free software only.
 To install this plugin automatically in PLD web browsers install
 'browser-plugin-java-%{name}' package too.
 
-%description jre-base-mozilla-plugin
+%description jre-base-mozilla-plugin -l pl.UTF-8
 Wtyczka dla przeglądarek oferująca wsparcie dla javy za pośrednictwem
 środowiska OpenJDK zbudowana wyłącznie przy użyciu wolnego
 oprogramowania.
