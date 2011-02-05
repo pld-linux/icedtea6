@@ -237,7 +237,7 @@ Provides:	jre-X11 = %{_jdkversion}
 X11 support for OpenJDK runtime environment built using free software
 only.
 
-%description jre-X11 -l pl.UTf-8
+%description jre-X11 -l pl.UTF-8
 Biblioteki X11 dla środowiska OpenJDK zbudowany wyłocznie przy uzyciu
 wolnego oprogramowania.
 
@@ -266,7 +266,7 @@ Requires:	%{name}-jre-base-freetype = %{version}-%{release}
 X11 support for OpenJDK runtime environment built using free software
 only.
 
-%description jre-base-X11 -l pl.UTf-8
+%description jre-base-X11 -l pl.UTF-8
 Biblioteki X11 dla środowiska OpenJDK zbudowany wyłocznie przy uzyciu
 wolnego oprogramowania.
 
