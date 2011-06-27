@@ -44,7 +44,7 @@ Patch5:		%{name}-system_tray.patch
 URL:		http://icedtea.classpath.org/wiki/Main_Page
 BuildRequires:	alsa-lib-devel
 %{!?with_bootstrap:BuildRequires:	ant-nodeps}
-%{!?with_bootstrap:BuildRequires:	ant}
+BuildRequires:	ant
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bash
