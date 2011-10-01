@@ -21,7 +21,7 @@ Summary:	OpenJDK and GNU Classpath code
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath
 Name:		icedtea6
 Version:	1.8.3
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Development/Languages/Java
 Source0:	http://icedtea.classpath.org/download/source/%{name}-%{version}.tar.gz
@@ -479,6 +479,8 @@ cp -a openjdk/build/linux-*/j2sdk-image/* $RPM_BUILD_ROOT%{dstdir}
 ln -s %{dstreldir} $RPM_BUILD_ROOT%{_jvmdir}/%{name}
 ln -s %{jrereldir} $RPM_BUILD_ROOT%{_jvmdir}/%{name}-jre
 
+ln -s %{dstreldir} $RPM_BUILD_ROOT%{_jvmdir}/java
+
 # move JDK sources and demo to /usr/src
 mv $RPM_BUILD_ROOT%{dstdir}/demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 mv $RPM_BUILD_ROOT%{dstdir}/sample $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
@@ -571,6 +573,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/wsgen
 %attr(755,root,root) %{_bindir}/wsimport
 %attr(755,root,root) %{_bindir}/xjc
+%{_jvmdir}/java
 %{_mandir}/man1/apt.1*
 %{_mandir}/man1/extcheck.1*
 %{_mandir}/man1/idlj.1*
