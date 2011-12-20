@@ -21,7 +21,7 @@ Summary:	OpenJDK and GNU Classpath code
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath
 Name:		icedtea6
 Version:	1.8.3
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		Development/Languages/Java
 Source0:	http://icedtea.classpath.org/download/source/%{name}-%{version}.tar.gz
@@ -399,7 +399,7 @@ Wtyczka z obsługą Javy dla przeglądarek WWW.
 %patch0 -p1
 
 # workaround for an ECJ bug
-%patch1 -p1
+#%patch1 -p1
 
 %patch2 -p1
 
