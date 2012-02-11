@@ -466,6 +466,7 @@ export PATH="$JAVA_HOME/bin:$PATH"
 sed -i -e's/dpkg-architecture/dpkg-architecture__/' openjdk*/*/make/common/shared/Platform.gmk
 
 %{__make} -j1 \
+	DISABLE_HOTSPOT_OS_VERSION_CHECK=ok \
 	DISTRIBUTION_PATCHES="$(echo pld-patches/*.patch)" \
 	PRINTF=/bin/printf
 
