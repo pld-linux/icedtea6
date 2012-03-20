@@ -1,10 +1,12 @@
 # TODO:
 # - install .ttf fonts (same as in sun-java-base-jre-X11 package) or configure
 #   it to use system fonts (is it possible?).
+# - prepare the icedtea-web package to provide the plugin and WebStart
 
 %bcond_with bootstrap	# don't use gcj, use an installed icedtea6 instead
-%bcond_without plugin		# don't build browser plugin
-%bcond_without nss		# don't use NSS
+%bcond_with plugin	# build browser plugin (icedtea-web is recommended instead)
+%bcond_with webstart	# build webstart (icedtea-web is recommended instead)
+%bcond_without nss	# don't use NSS
 
 %if %{with bootstrap}
 %define		use_jdk	java-gcj-compat
@@ -20,29 +22,27 @@
 Summary:	OpenJDK and GNU Classpath code
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath
 Name:		icedtea6
-Version:	1.8.3
-Release:	7
+Version:	1.9.13
+Release:	0.1
 License:	GPL v2
 Group:		Development/Languages/Java
 Source0:	http://icedtea.classpath.org/download/source/%{name}-%{version}.tar.gz
-# Source0-md5:	879bdc0160da9e0d0210bda75c8f6054
+# Source0-md5:	6a5c0d0ad2fe4bdb6cd851bcc24eac31
 # following sources should match those in Makefile.am
-Source1:	http://download.java.net/openjdk/jdk6/promoted/b18/openjdk-6-src-b18-16_feb_2010.tar.gz
-# Source1-md5:	94db01691ab38f98b7d42b2ebf4d5c0b
-Source2:	http://kenai.com/projects/jdk6-drops/downloads/download/jdk6-jaxws-2009_10_27.zip
-# Source2-md5:	3ea5728706169498b722b898a1008acf
-Source3:	http://kenai.com/projects/jdk6-drops/downloads/download/jdk6-jaf-2009_10_27.zip
-# Source3-md5:	7a50bb540a27cdd0001885630088b758
-Source4:	https://jaxp.dev.java.net/files/documents/913/147329/jdk6-jaxp-2009_10_13.zip
-# Source4-md5:	a2f7b972124cd776ff71e7754eb9a429
+Source1:	http://download.java.net/openjdk/jdk6/promoted/b20/openjdk-6-src-b20-21_jun_2010.tar.gz
+# Source1-md5:	0b36adbf67e4f261e1b827ed4be4f447
+Source2:	http://icedtea.classpath.org/download/drops/jdk6-jaxws-b20.zip
+# Source2-md5:	91adfd41e6f001add4f92ae31216b1e3
+Source3:	http://icedtea.classpath.org/download/drops/jdk6-jaf-b20.zip
+# Source3-md5:	bc95c133620bd68c161cac9891592901
+Source4:	http://icedtea.classpath.org/download/drops/jdk6-jaxp-b20.zip
+# Source4-md5:	22e95fbdb9fb7d8b6b6fc0a1d76d1fbd
 Patch0:		%{name}-i486.patch
-Patch1:		%{name}-ecj_single_thread.patch
-Patch2:		%{name}-no_dtdtype_patch.patch
-Patch3:		%{name}-rpath.patch
-Patch4:		%{name}-libpath.patch
-Patch5:		%{name}-system_tray.patch
-Patch6:		%{name}-xul.patch
-Patch7:		%{name}-build.patch
+Patch1:		%{name}-rpath.patch
+Patch2:		%{name}-xul.patch
+Patch3:		%{name}-libpath.patch
+# http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=7103224
+Patch4:		openjdk-__LEAF.patch
 URL:		http://icedtea.classpath.org/wiki/Main_Page
 BuildRequires:	alsa-lib-devel
 BuildRequires:	ant-nodeps
@@ -399,24 +399,14 @@ Wtyczka z obsługą Javy dla przeglądarek WWW.
 %setup -q
 
 %patch0 -p1
-
-# workaround for an ECJ bug
-#%patch1 -p1
-
-%patch2 -p1
-
 # rpath so IcedTeaPlugin.so can find libxul.so and libxpcom.so
-%patch3 -p1
-
-%patch4 -p1
+%patch1 -p1
+%patch2 -p1
 
 # patches to applied to the extracted sources
 mkdir -p pld-patches
-cp "%{PATCH5}" pld-patches
-
-%patch6 -p1
-
-cp "%{PATCH7}" pld-patches
+cp "%{PATCH3}" pld-patches
+cp "%{PATCH4}" pld-patches
 
 # let the build system extract the sources where it wants them
 mkdir drops
@@ -424,6 +414,7 @@ ln -s %{SOURCE1} .
 ln -s %{SOURCE2} drops
 ln -s %{SOURCE3} drops
 ln -s %{SOURCE4} drops
+ln -s %{SOURCE5} drops
 
 %build
 # Make sure we have /proc mounted - otherwise idlc will fail later.
@@ -451,6 +442,11 @@ export PATH="$JAVA_HOME/bin:$PATH"
 	--enable-plugin \
 %else
 	--disable-plugin \
+%endif
+%if %{with webstart}
+	--enable-webstart \
+%else
+	--disable-webstart \
 %endif
 	%{!?with_nss:--disable-nss} \
 	--with-xalan2-jar=%{_javadir}/xalan.jar \
@@ -480,7 +476,7 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{dstdir},%{_mandir}/ja,%{_browserpluginsd
 	$RPM_BUILD_ROOT%{_sysconfdir}/%{name}
 
 # install the 'JDK image', it contains the JRE too
-cp -a openjdk/build/linux-*/j2sdk-image/* $RPM_BUILD_ROOT%{dstdir}
+cp -a openjdk.build/j2sdk-image/* $RPM_BUILD_ROOT%{dstdir}
 
 # convenience symlinks without version number
 ln -s %{dstreldir} $RPM_BUILD_ROOT%{_jvmdir}/%{name}
@@ -636,8 +632,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files jdk-base
 %defattr(644,root,root,755)
-%doc openjdk/build/linux-*/j2sdk-image/THIRD_PARTY_README
-%doc openjdk/build/linux-*/j2sdk-image/ASSEMBLY_EXCEPTION
+%doc openjdk.build/j2sdk-image/THIRD_PARTY_README
+%doc openjdk.build/j2sdk-image/ASSEMBLY_EXCEPTION
 %dir %{dstdir}
 %{_jvmdir}/%{name}
 %attr(755,root,root) %{dstdir}/bin/appletviewer
@@ -686,7 +682,7 @@ rm -rf $RPM_BUILD_ROOT
 %files jre
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/java
-%attr(755,root,root) %{_bindir}/javaws
+%{?with_webstart:%attr(755,root,root) %{_bindir}/javaws}
 %attr(755,root,root) %{_bindir}/keytool
 %attr(755,root,root) %{_bindir}/orbd
 %attr(755,root,root) %{_bindir}/pack200
@@ -696,7 +692,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/tnameserv
 %attr(755,root,root) %{_bindir}/unpack200
 %{_mandir}/man1/java.1*
-%{_mandir}/man1/javaws.1*
+%{?with_webstart:%{_mandir}/man1/javaws.1*}
 %{_mandir}/man1/keytool.1*
 %{_mandir}/man1/orbd.1*
 %{_mandir}/man1/pack200.1*
@@ -707,7 +703,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/unpack200.1*
 %lang(ja) %{_mandir}/ja/man1/java.1*
 %ifnarch x86_64
-%lang(ja) %{_mandir}/ja/man1/javaws.1*
+%{?with_webstart:%lang(ja) %{_mandir}/ja/man1/javaws.1*}
 %endif
 %lang(ja) %{_mandir}/ja/man1/keytool.1*
 %lang(ja) %{_mandir}/ja/man1/orbd.1*
@@ -720,8 +716,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files jre-base
 %defattr(644,root,root,755)
-%doc openjdk/build/linux-*/j2sdk-image/THIRD_PARTY_README
-%doc openjdk/build/linux-*/j2sdk-image/ASSEMBLY_EXCEPTION
+%doc openjdk.build/j2sdk-image/THIRD_PARTY_README
+%doc openjdk.build/j2sdk-image/ASSEMBLY_EXCEPTION
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/*
 %dir %{dstdir}
@@ -731,8 +727,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{dstdir}/bin
 %attr(755,root,root) %{jredir}/bin/java
 %attr(755,root,root) %{dstdir}/bin/java
+%if %{with webstart}
 %attr(755,root,root) %{jredir}/bin/javaws
 %attr(755,root,root) %{dstdir}/bin/javaws
+%endif
 %attr(755,root,root) %{jredir}/bin/keytool
 %attr(755,root,root) %{dstdir}/bin/keytool
 %attr(755,root,root) %{jredir}/bin/orbd
@@ -804,8 +802,10 @@ rm -rf $RPM_BUILD_ROOT
 %{jredir}/lib/security
 %{jredir}/lib/zi
 #
+%if %{with webstart}
 %{jredir}/lib/about.jar
 %{jredir}/lib/about.jnlp
+%endif
 %{jredir}/lib/calendars.properties
 %{jredir}/lib/charsets.jar
 %{jredir}/lib/classlist

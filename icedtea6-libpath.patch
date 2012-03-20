@@ -1,14 +1,14 @@
---- icedtea6-1.8/patches/hotspot/original/icedtea-6778662-lib64.patch.orig	2010-06-07 11:05:44.906948049 +0200
-+++ icedtea6-1.8/patches/hotspot/original/icedtea-6778662-lib64.patch	2010-06-07 11:06:24.229865044 +0200
-@@ -7,9 +7,9 @@
- -#define DEFAULT_LIBPATH	"/lib:/usr/lib"
- +
- +#if defined(AMD64) || defined(_LP64) && (defined(PPC) || defined(S390))
--+#define DEFAULT_LIBPATH "/usr/lib64:/lib64:/lib:/usr/lib"
-++#define DEFAULT_LIBPATH "/usr/lib64/java:/usr/lib64:/lib64:/lib:/usr/lib"
- +#else
--+#define DEFAULT_LIBPATH	"/lib:/usr/lib"
-++#define DEFAULT_LIBPATH	"/usr/lib/java:/lib:/usr/lib"
- +#endif
-  
-  #define EXTENSIONS_DIR	"/lib/ext"
+--- openjdk/hotspot/src/os/linux/vm/os_linux.cpp.orig	2012-03-20 14:24:27.002521200 +0100
++++ openjdk/hotspot/src/os/linux/vm/os_linux.cpp	2012-03-20 14:24:59.150654944 +0100
+@@ -286,9 +286,9 @@
+  *        7: The default directories, normally /lib and /usr/lib.
+  */
+ #if defined(AMD64) || defined(_LP64) && (defined(SPARC) || defined(PPC) || defined(S390))
+-#define DEFAULT_LIBPATH "/usr/lib64:/lib64:/lib:/usr/lib"
++#define DEFAULT_LIBPATH "/usr/lib64/java:/usr/lib64:/lib64:/lib:/usr/lib"
+ #else
+-#define DEFAULT_LIBPATH "/lib:/usr/lib"
++#define DEFAULT_LIBPATH "/usr/lib/java:/lib:/usr/lib"
+ #endif
+ 
+ #define EXTENSIONS_DIR  "/lib/ext"
