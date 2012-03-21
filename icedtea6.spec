@@ -1,9 +1,8 @@
 # TODO:
 # - install .ttf fonts (same as in sun-java-base-jre-X11 package) or configure
 #   it to use system fonts (is it possible?).
-# - prepare the icedtea-web package to provide the plugin and WebStart
 
-%bcond_with bootstrap	# don't use gcj, use an installed icedtea6 instead
+%bcond_with bootstrap	# don't use an installed icedtea6, use ecj instead
 %bcond_with plugin	# build browser plugin (icedtea-web is recommended instead)
 %bcond_with webstart	# build webstart (icedtea-web is recommended instead)
 %bcond_without nss	# don't use NSS
@@ -23,7 +22,7 @@ Summary:	OpenJDK and GNU Classpath code
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath
 Name:		icedtea6
 Version:	1.9.13
-Release:	0.1
+Release:	1
 License:	GPL v2
 Group:		Development/Languages/Java
 Source0:	http://icedtea.classpath.org/download/source/%{name}-%{version}.tar.gz
@@ -87,7 +86,8 @@ BuildRequires:	zlib-devel
 Requires:	%{name}-appletviewer = %{version}-%{release}
 Requires:	%{name}-jdk = %{version}-%{release}
 Suggests:	%{name}-jre-X11
-Suggests:	browser-plugin-java-%{name}
+Suggests:	browser-plugin-java-icedtea-web
+Suggests:	icedtea-web
 Obsoletes:	java5-sun
 Obsoletes:	java5-sun-jre
 Obsoletes:	java5-sun-jre-jdbc
