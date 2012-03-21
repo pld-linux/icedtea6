@@ -3,8 +3,6 @@
 #   it to use system fonts (is it possible?).
 
 %bcond_with bootstrap	# don't use an installed icedtea6, use ecj instead
-%bcond_with plugin	# build browser plugin (icedtea-web is recommended instead)
-%bcond_with webstart	# build webstart (icedtea-web is recommended instead)
 %bcond_without nss	# don't use NSS
 
 %if %{with bootstrap}
@@ -16,32 +14,28 @@
 # class data version seen with file(1) that this jvm is able to load
 %define		_classdataversion 50.0
 # JDK/JRE version, as returned with `java -version`, '_' replaced with '.'
-%define		_jdkversion 1.6.0.20
+%define		_jdkversion 1.6.0.24
 
 Summary:	OpenJDK and GNU Classpath code
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath
 Name:		icedtea6
-Version:	1.9.13
-Release:	1
+Version:	1.11.1
+Release:	0.1
 License:	GPL v2
 Group:		Development/Languages/Java
 Source0:	http://icedtea.classpath.org/download/source/%{name}-%{version}.tar.gz
-# Source0-md5:	6a5c0d0ad2fe4bdb6cd851bcc24eac31
+# Source0-md5:	e51d9d2f0328cc5aa7a00943abd96ed6
 # following sources should match those in Makefile.am
-Source1:	http://download.java.net/openjdk/jdk6/promoted/b20/openjdk-6-src-b20-21_jun_2010.tar.gz
-# Source1-md5:	0b36adbf67e4f261e1b827ed4be4f447
-Source2:	http://icedtea.classpath.org/download/drops/jdk6-jaxws-b20.zip
-# Source2-md5:	91adfd41e6f001add4f92ae31216b1e3
+Source1:	http://download.java.net/openjdk/jdk6/promoted/b24/openjdk-6-src-b24-14_nov_2011.tar.gz
+# Source1-md5:	0eabdd360169144336e50081b8d01001
+Source2:	http://icedtea.classpath.org/download/drops/jdk6-jaxws2_1_6-2011_06_13.zip
+# Source2-md5:	8fd91b09b643a19a912b8a75e7a7a9d5
 Source3:	http://icedtea.classpath.org/download/drops/jdk6-jaf-b20.zip
 # Source3-md5:	bc95c133620bd68c161cac9891592901
-Source4:	http://icedtea.classpath.org/download/drops/jdk6-jaxp-b20.zip
-# Source4-md5:	22e95fbdb9fb7d8b6b6fc0a1d76d1fbd
+Source4:	http://icedtea.classpath.org/download/drops/jaxp144_03.zip
+# Source4-md5:	9eea471ad474040265c688858fcf09aa
 Patch0:		%{name}-i486.patch
-Patch1:		%{name}-rpath.patch
-Patch2:		%{name}-xul.patch
-Patch3:		%{name}-libpath.patch
-# http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=7103224
-Patch4:		openjdk-__LEAF.patch
+Patch1:		%{name}-libpath.patch
 URL:		http://icedtea.classpath.org/wiki/Main_Page
 BuildRequires:	alsa-lib-devel
 BuildRequires:	ant-nodeps
@@ -60,7 +54,7 @@ BuildRequires:	glibc-misc
 BuildRequires:	gtk+2-devel
 BuildRequires:	java-rhino
 BuildRequires:	java-xalan
-BuildRequires:	java-xerces
+%{?with_bootstrap:BuildRequires:	java-xerces}
 %buildrequires_jdk
 BuildRequires:	libffi-devel
 BuildRequires:	libjpeg-devel
@@ -80,13 +74,11 @@ BuildRequires:	xorg-lib-libXt-devel
 BuildRequires:	xorg-lib-libXtst-devel
 BuildRequires:	xorg-proto-printproto-devel
 BuildRequires:	xorg-proto-xproto-devel
-%{?with_plugin:BuildRequires:	xulrunner-devel}
 BuildRequires:	zip
 BuildRequires:	zlib-devel
 Requires:	%{name}-appletviewer = %{version}-%{release}
 Requires:	%{name}-jdk = %{version}-%{release}
 Suggests:	%{name}-jre-X11
-Suggests:	browser-plugin-java-icedtea-web
 Suggests:	icedtea-web
 Obsoletes:	java5-sun
 Obsoletes:	java5-sun-jre
@@ -300,26 +292,6 @@ software only.
 Biblioteki obsługi czcionek dla OpenJDK zbudowane wyłącznie przy
 użyciu wolnego oprogramowania.
 
-%package jre-base-mozilla-plugin
-Summary:	IceTea Java plugin for WWW browsers
-Summary(pl.UTF-8):	Wtyczka Javy do przeglądarek WWW
-Group:		Development/Languages/Java
-Requires:	%{name}-jre-base-X11 = %{version}-%{release}
-
-%description jre-base-mozilla-plugin
-OpenJDK Java plugin for WWW browsers built using free software only.
-
-To install this plugin automatically in PLD web browsers install
-'browser-plugin-java-%{name}' package too.
-
-%description jre-base-mozilla-plugin -l pl.UTF-8
-Wtyczka dla przeglądarek oferująca wsparcie dla javy za pośrednictwem
-środowiska OpenJDK zbudowana wyłącznie przy użyciu wolnego
-oprogramowania.
-
-Aby zainstalować tę wtyczke automatycznie w przeglądarkach dostępnych
-w PLD, zainstaluj również pakiet 'browser-plugin-java-%{name}.
-
 %package jar
 Summary:	OpenJDK and GNU Classpath code - JAR tool
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - narzędzie JAR
@@ -381,32 +353,14 @@ Code examples for OpenJDK.
 %description examples -l pl.UTF-8
 Przykłady dla OpenJDK.
 
-%package -n browser-plugin-java-%{name}
-Summary:	IceTea Java plugin for WWW browsers
-Summary(pl.UTF-8):	Wtyczka Javy do przeglądarek WWW
-Group:		Development/Languages/Java
-Requires:	%{name}-jre-base-mozilla-plugin = %{version}-%{release}
-Requires:	browser-plugins >= 2.0
-Requires:	browser-plugins(%{_target_base_arch})
-
-%description -n browser-plugin-java-%{name}
-Java plugin for WWW browsers.
-
-%description -n browser-plugin-java-%{name} -l pl.UTF-8
-Wtyczka z obsługą Javy dla przeglądarek WWW.
-
 %prep
 %setup -q
 
 %patch0 -p1
-# rpath so IcedTeaPlugin.so can find libxul.so and libxpcom.so
-%patch1 -p1
-%patch2 -p1
 
 # patches to applied to the extracted sources
 mkdir -p pld-patches
-cp "%{PATCH3}" pld-patches
-cp "%{PATCH4}" pld-patches
+cp "%{PATCH1}" pld-patches
 
 # let the build system extract the sources where it wants them
 mkdir drops
@@ -436,17 +390,7 @@ export PATH="$JAVA_HOME/bin:$PATH"
 	--with-gcj-home=%{java_home} \
 	--with-ecj-jar=%{_javadir}/ecj.jar \
 %else
-	--with-openjdk=%{java_home} \
-%endif
-%if %{with plugin}
-	--enable-plugin \
-%else
-	--disable-plugin \
-%endif
-%if %{with webstart}
-	--enable-webstart \
-%else
-	--disable-webstart \
+	--with-jdk-home=%{java_home} \
 %endif
 	%{!?with_nss:--disable-nss} \
 	--with-xalan2-jar=%{_javadir}/xalan.jar \
@@ -471,7 +415,7 @@ sed -i -e's/dpkg-architecture/dpkg-architecture__/' openjdk*/*/make/common/share
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{dstdir},%{_mandir}/ja,%{_browserpluginsdir}} \
+install -d $RPM_BUILD_ROOT{%{_bindir},%{dstdir},%{_mandir}/ja} \
 	$RPM_BUILD_ROOT{%{jvmjardir},%{_examplesdir}/%{name}-%{version},%{_javasrcdir}} \
 	$RPM_BUILD_ROOT%{_sysconfdir}/%{name}
 
@@ -516,10 +460,6 @@ for config in management security content-types.properties \
 	ln -s %{_sysconfdir}/%{name}/$config $RPM_BUILD_ROOT%{jredir}/lib/$config
 done
 
-%if %{with plugin}
-ln -s %{jredir}/lib/%{jre_arch}/IcedTeaPlugin.so $RPM_BUILD_ROOT%{_browserpluginsdir}
-%endif
-
 ln -sf %{jredir}/lib/jsse.jar $RPM_BUILD_ROOT%{jvmjardir}/jsse.jar
 ln -sf %{jredir}/lib/jsse.jar $RPM_BUILD_ROOT%{jvmjardir}/jcert.jar
 ln -sf %{jredir}/lib/jsse.jar $RPM_BUILD_ROOT%{jvmjardir}/jnet.jar
@@ -531,14 +471,6 @@ for f in jndi jndi-ldap jndi-cos jndi-rmi jaas jdbc-stdext jdbc-stdext-3.0 \
 done
 
 rm -f $RPM_BUILD_ROOT%{dstdir}/{,jre/}{ASSEMBLY_EXCEPTION,LICENSE,THIRD_PARTY_README}
-
-%post -n browser-plugin-java-%{name}
-%update_browser_plugins
-
-%postun -n browser-plugin-java-%{name}
-if [ "$1" = 0 ]; then
-	%update_browser_plugins
-fi
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -682,7 +614,6 @@ rm -rf $RPM_BUILD_ROOT
 %files jre
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/java
-%{?with_webstart:%attr(755,root,root) %{_bindir}/javaws}
 %attr(755,root,root) %{_bindir}/keytool
 %attr(755,root,root) %{_bindir}/orbd
 %attr(755,root,root) %{_bindir}/pack200
@@ -692,7 +623,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/tnameserv
 %attr(755,root,root) %{_bindir}/unpack200
 %{_mandir}/man1/java.1*
-%{?with_webstart:%{_mandir}/man1/javaws.1*}
 %{_mandir}/man1/keytool.1*
 %{_mandir}/man1/orbd.1*
 %{_mandir}/man1/pack200.1*
@@ -703,7 +633,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/unpack200.1*
 %lang(ja) %{_mandir}/ja/man1/java.1*
 %ifnarch x86_64
-%{?with_webstart:%lang(ja) %{_mandir}/ja/man1/javaws.1*}
 %endif
 %lang(ja) %{_mandir}/ja/man1/keytool.1*
 %lang(ja) %{_mandir}/ja/man1/orbd.1*
@@ -727,10 +656,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{dstdir}/bin
 %attr(755,root,root) %{jredir}/bin/java
 %attr(755,root,root) %{dstdir}/bin/java
-%if %{with webstart}
-%attr(755,root,root) %{jredir}/bin/javaws
-%attr(755,root,root) %{dstdir}/bin/javaws
-%endif
 %attr(755,root,root) %{jredir}/bin/keytool
 %attr(755,root,root) %{dstdir}/bin/keytool
 %attr(755,root,root) %{jredir}/bin/orbd
@@ -871,16 +796,3 @@ rm -rf $RPM_BUILD_ROOT
 %files examples
 %defattr(644,root,root,755)
 %{_examplesdir}/%{name}-%{version}
-
-%if %{with plugin}
-%files jre-base-mozilla-plugin
-%defattr(644,root,root,755)
-%attr(755,root,root) %{jredir}/bin/pluginappletviewer
-%attr(755,root,root) %{dstdir}/bin/pluginappletviewer
-%attr(755,root,root) %{jredir}/lib/%{jre_arch}/IcedTeaPlugin.so
-
-%files -n browser-plugin-java-%{name}
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/pluginappletviewer
-%attr(755,root,root) %{_browserpluginsdir}/IcedTeaPlugin.so
-%endif

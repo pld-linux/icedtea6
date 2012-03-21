@@ -1,4 +1,3 @@
 - desktop files, icons, etc. Some of these are included in the source root dir
 - maybe build Shark VM, at least on i486, as the zero-assembly VM is very slow
-- javaws manual on x86_64 (it is not installed for some reason)
 - pass %{rpmcflags} to build
