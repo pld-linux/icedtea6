@@ -20,7 +20,7 @@ Summary:	OpenJDK and GNU Classpath code
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath
 Name:		icedtea6
 Version:	1.11.1
-Release:	0.1
+Release:	0.2
 License:	GPL v2
 Group:		Development/Languages/Java
 Source0:	http://icedtea.classpath.org/download/source/%{name}-%{version}.tar.gz
@@ -57,6 +57,8 @@ BuildRequires:	java-xalan
 %{?with_bootstrap:BuildRequires:	java-xerces}
 %buildrequires_jdk
 BuildRequires:	libffi-devel
+# for /usr/share/java/ecj.jar:
+BuildRequires:	libgcj
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-static
