@@ -20,7 +20,7 @@ Summary:	OpenJDK and GNU Classpath code
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath
 Name:		icedtea6
 Version:	1.11.1
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Development/Languages/Java
 Source0:	http://icedtea.classpath.org/download/source/%{name}-%{version}.tar.gz
@@ -472,6 +472,9 @@ for f in jndi jndi-ldap jndi-cos jndi-rmi jaas jdbc-stdext jdbc-stdext-3.0 \
 	ln -sf %{jredir}/lib/rt.jar $RPM_BUILD_ROOT%{jvmjardir}/$f.jar
 done
 
+# some apps (like opera) looks for it in different place
+ln -s server/libjvm.so $RPM_BUILD_ROOT%{jredir}/lib/%{jre_arch}/libjvm.so
+
 rm -f $RPM_BUILD_ROOT%{dstdir}/{,jre/}{ASSEMBLY_EXCEPTION,LICENSE,THIRD_PARTY_README}
 
 %clean
@@ -710,6 +713,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libjpeg.so
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libjsig.so
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libjsound.so
+%attr(755,root,root) %{jredir}/lib/%{jre_arch}/libjvm.so
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/liblcms.so
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libmanagement.so
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libmlib_image.so
