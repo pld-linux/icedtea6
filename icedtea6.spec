@@ -19,12 +19,12 @@
 Summary:	OpenJDK and GNU Classpath code
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath
 Name:		icedtea6
-Version:	1.11.1
-Release:	3
+Version:	1.11.4
+Release:	1
 License:	GPL v2
 Group:		Development/Languages/Java
 Source0:	http://icedtea.classpath.org/download/source/%{name}-%{version}.tar.gz
-# Source0-md5:	e51d9d2f0328cc5aa7a00943abd96ed6
+# Source0-md5:	a5a3a5aeaba0ddf4c9fdf8e899bf77c2
 # following sources should match those in Makefile.am
 Source1:	http://download.java.net/openjdk/jdk6/promoted/b24/openjdk-6-src-b24-14_nov_2011.tar.gz
 # Source1-md5:	0eabdd360169144336e50081b8d01001
