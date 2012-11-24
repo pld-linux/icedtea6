@@ -356,20 +356,18 @@ Przykłady dla OpenJDK.
 
 %prep
 %setup -q
-
 %patch0 -p1
 
 # patches to applied to the extracted sources
-mkdir -p pld-patches
-cp "%{PATCH1}" pld-patches
+install -d pld-patches
+cp -p %{PATCH1} pld-patches
 
 # let the build system extract the sources where it wants them
-mkdir drops
+install -d drops
 ln -s %{SOURCE1} .
 ln -s %{SOURCE2} drops
 ln -s %{SOURCE3} drops
 ln -s %{SOURCE4} drops
-ln -s %{SOURCE5} drops
 
 %build
 # Make sure we have /proc mounted - otherwise idlc will fail later.
@@ -407,7 +405,7 @@ export PATH="$JAVA_HOME/bin:$PATH"
 %endif
 # if dpkg-architecure is installed (like on carme) it will break the build
 # unless we disable using it somehow. As patching is difficult here:
-sed -i -e's/dpkg-architecture/dpkg-architecture__/' openjdk*/*/make/common/shared/Platform.gmk
+%{__sed} -i -e's/dpkg-architecture/dpkg-architecture__/' openjdk*/*/make/common/shared/Platform.gmk
 
 %{__make} -j1 \
 	DISABLE_HOTSPOT_OS_VERSION_CHECK=ok \
@@ -455,7 +453,7 @@ ln -sf ../jre/lib/jexec $RPM_BUILD_ROOT%{dstdir}/lib/jexec
 
 # keep configuration in /etc (not all *.properties go there)
 for config in management security content-types.properties \
-		logging.properties net.properties sound.properties ; do
+		logging.properties net.properties sound.properties; do
 
 	mv $RPM_BUILD_ROOT%{jredir}/lib/$config $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/$config
 	ln -s %{_sysconfdir}/%{name}/$config $RPM_BUILD_ROOT%{jredir}/lib/$config
@@ -474,7 +472,7 @@ done
 # some apps (like opera) looks for it in different place
 ln -s server/libjvm.so $RPM_BUILD_ROOT%{jredir}/lib/%{jre_arch}/libjvm.so
 
-rm -f $RPM_BUILD_ROOT%{dstdir}/{,jre/}{ASSEMBLY_EXCEPTION,LICENSE,THIRD_PARTY_README}
+%{__rm} $RPM_BUILD_ROOT%{dstdir}/{,jre/}{ASSEMBLY_EXCEPTION,LICENSE,THIRD_PARTY_README}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
