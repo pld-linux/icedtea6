@@ -595,7 +595,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{dstdir}/bin/rmic
 %attr(755,root,root) %{dstdir}/bin/schemagen
 %attr(755,root,root) %{dstdir}/bin/serialver
-%attr(755,root,root) %{dstdir}/bin/servertool
 %attr(755,root,root) %{dstdir}/bin/wsgen
 %attr(755,root,root) %{dstdir}/bin/wsimport
 %attr(755,root,root) %{dstdir}/bin/xjc
