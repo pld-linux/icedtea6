@@ -38,7 +38,6 @@ Patch0:		%{name}-i486.patch
 Patch1:		%{name}-libpath.patch
 URL:		http://icedtea.classpath.org/wiki/Main_Page
 BuildRequires:	alsa-lib-devel
-BuildRequires:	ant-nodeps
 BuildRequires:	ant
 BuildRequires:	autoconf
 BuildRequires:	automake
