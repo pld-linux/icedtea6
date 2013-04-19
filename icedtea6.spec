@@ -396,6 +396,7 @@ export PATH="$JAVA_HOME/bin:$PATH"
 	--with-rhino=%{_javadir}/js.jar
 
 %{__make} extract extract-ecj \
+	SHELL=/bin/bash \
 	DISTRIBUTION_PATCHES="$(echo pld-patches/*.patch)"
 
 %if %{with bootstrap}
@@ -407,6 +408,7 @@ export PATH="$JAVA_HOME/bin:$PATH"
 %{__sed} -i -e's/dpkg-architecture/dpkg-architecture__/' openjdk*/*/make/common/shared/Platform.gmk
 
 %{__make} -j1 \
+	SHELL=/bin/bash \
 	DISABLE_HOTSPOT_OS_VERSION_CHECK=ok \
 	DISTRIBUTION_PATCHES="$(echo pld-patches/*.patch)" \
 	PRINTF=/bin/printf
