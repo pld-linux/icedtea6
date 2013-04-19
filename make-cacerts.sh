@@ -1,5 +1,9 @@
 #!/bin/sh -e
 #
+# make-cacerts.sh
+#
+# based on:
+#
 # update-ca-certificates
 #
 # Copyright (c) 2003 Fumitoshi UKAI <ukai@debian.or.jp>
@@ -22,19 +26,16 @@
 #
 
 verbose=0
-fresh=0
 DESTDIR=
 while [ $# -gt 0 ];
 do
   case $1 in
   --verbose|-v)
   	verbose=1;;
-  --fresh|-f)
-	fresh=1;;
   --destdir)
 	DESTDIR=$2; shift;;
   --help|-h|*)
-	echo "$0: [--verbose] [--fresh]"
+	echo "$0: [--verbose]"
 	exit;;
   esac
   shift
@@ -47,84 +48,41 @@ LOCALCERTSDIR=$DESTDIR/etc/certs
 CERTBUNDLE=$DESTDIR/etc/certs/ca-certificates.crt
 ETCCERTSDIR=$DESTDIR/etc/openssl/certs
 
-cleanup() {
-  rm -f "$TEMPBUNDLE"
-  rm -f "$ADDED"
-  rm -f "$REMOVED"
-}
-trap cleanup 0
+KEYSTORE=$PWD/cacerts
+KEYTOOL=$PWD/openjdk.build/bin/keytool
 
-# Helper files.  (Some of them are not simple arrays because we spawn
-# subshells later on.)
-TEMPBUNDLE="$(mktemp "${CERTBUNDLE}.tmp.XXXXXX")"
-ADDED="$(mktemp -t "ca-certificates.tmp.XXXXXX")"
-REMOVED="$(mktemp -t "ca-certificates.tmp.XXXXXX")"
-
-# Adds a certificate to the list of trusted ones.  This includes a symlink
-# in /etc/openssl/certs to the certificate file and its inclusion into the
-# bundle.
+# Adds a certificate to the list of trusted ones.
+# Adds the certificate to the cacerts file
 add() {
   CERT="$1"
-  PEM="$ETCCERTSDIR/$(basename "$CERT" .pem | sed -e 's/.crt$//' -e 's/ /_/g' \
-                                                  -e 's/[()]/=/g' \
-                                                  -e 's/,/_/g').pem"
-  if ! test -e "$PEM" || [ "$(readlink "$PEM")" != "$CERT" ]
-  then
-    ln -sf "$CERT" "$PEM"
-    echo +$PEM >> "$ADDED"
-  fi
-  cat "$CERT" >> "$TEMPBUNDLE"
-  echo >> "$TEMPBUNDLE"
-}
+  NAME="$2"
+  ALIAS="$(echo "$NAME" | sed -e 's/.\(crt|pem\)$//' -e 's/ /_/g' \
+                                                -e 's/[()]/=/g' -e 's/,/_/g')"
 
-remove() {
-  CERT="$1"
-  PEM="$ETCCERTSDIR/$(basename "$CERT" .pem | sed 's/.crt$//').pem"
-  if test -L "$PEM"
-  then
-    rm -f "$PEM"
-    echo -$PEM >> "$REMOVED"
+  if [ "$verbose" = 1 ] ; then
+    echo "  adding '$CERT' as '$ALIAS'"
   fi
+  if ! $KEYTOOL -noprompt -import -alias "$ALIAS" \
+                -keystore $KEYSTORE -storepass 'changeit' \
+                -file "$CERT" ; then
+        echo "W: $NAME certification could not be added"
+  fi 
 }
 
 cd $ETCCERTSDIR
-if [ "$fresh" = 1 ]; then
-  echo -n "Clearing symlinks in $ETCCERTSDIR..."
-  find . -type l -print | while read symlink
-  do
-     case $(readlink $symlink) in
-     $CERTSDIR*) rm -f $symlink;;
-     $LOCALCERTSDIR*) rm -f $symlink;;
-     esac
-  done
-  find . -type l -print | while read symlink
-  do
-     test -f $symlink || rm -f $symlink
-  done
-  echo "done."
-fi
-
-echo -n "Updating certificates in $ETCCERTSDIR... "
 
 for conf in $CERTSCONF $CERTSCONFD/*.conf; do
   # skip inexistent files (matched by glob)
   [ -f $conf ] || continue
 
-  # Handle certificates that should be removed.  This is an explicit act
-  # by prefixing lines in the configuration files with exclamation marks (!).
-  sed -n -e '/^$/d' -e 's/^!//p' $conf | while read crt
-  do
-    remove "$CERTSDIR/$crt"
-  done
-
   sed -e '/^$/d' -e '/^#/d' -e '/^!/d' $conf | while read crt
   do
     if test -f "$CERTSDIR/$crt"
     then
-      add "$CERTSDIR/$crt"
+      add "$CERTSDIR/$crt" "$crt"
     elif test -f "$LOCALCERTSDIR/$crt"
     then
-      add "$LOCALCERTSDIR/$crt"
+      add "$LOCALCERTSDIR/$crt" "$crt"
     else
       echo "W: $CERTSDIR/$crt or $LOCALCERTSDIR/$crt not found, but listed in $conf." >&2
       continue
@@ -132,26 +90,6 @@ for conf in $CERTSCONF $CERTSCONFD/*.conf; do
   done
 done
 
-rm -f "$CERTBUNDLE"
-
-ADDED_CNT=$(wc -l < "$ADDED")
-REMOVED_CNT=$(wc -l < "$REMOVED")
-
-if [ "$ADDED_CNT" -gt 0 ] || [ "$REMOVED_CNT" -gt 0 ]
-then
-  # only run if set of files has changed
-  if [ "$verbose" = 0 ]
-  then
-    c_rehash.sh . > /dev/null
-  else
-    c_rehash.sh .
-  fi
-fi
-
-chmod 0644 "$TEMPBUNDLE"
-mv -f "$TEMPBUNDLE" "$CERTBUNDLE"
-
-echo "$ADDED_CNT added, $REMOVED_CNT removed; done."
 echo "done."
 
 # vim:set et sw=2:

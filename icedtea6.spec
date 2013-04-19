@@ -4,6 +4,7 @@
 
 %bcond_with bootstrap	# don't use an installed icedtea6, use ecj instead
 %bcond_without nss	# don't use NSS
+%bcond_without cacerts	# don't include the default CA certificates
 
 %if %{with bootstrap}
 %define		use_jdk	java-gcj-compat
@@ -34,6 +35,7 @@ Source3:	http://icedtea.classpath.org/download/drops/jdk6-jaf-b20.zip
 # Source3-md5:	bc95c133620bd68c161cac9891592901
 Source4:	http://icedtea.classpath.org/download/drops/jaxp144_04.zip
 # Source4-md5:	0ace787aa12177d201947e8ba0ba9bdd
+Source10:	make-cacerts.sh
 Patch0:		%{name}-i486.patch
 Patch1:		%{name}-libpath.patch
 URL:		http://icedtea.classpath.org/wiki/Main_Page
@@ -42,6 +44,7 @@ BuildRequires:	ant
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bash
+%{?with_cacerts:BuildRequires:	ca-certificates-update}
 BuildRequires:	cups-devel
 BuildRequires:	/usr/bin/jar
 BuildRequires:	freetype-devel >= 2.3
@@ -413,6 +416,8 @@ export PATH="$JAVA_HOME/bin:$PATH"
 	DISTRIBUTION_PATCHES="$(echo pld-patches/*.patch)" \
 	PRINTF=/bin/printf
 
+%{?with_cacerts:%{__sh} %{SOURCE10}}
+
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{dstdir},%{_mandir}/ja} \
@@ -474,6 +479,8 @@ done
 ln -s server/libjvm.so $RPM_BUILD_ROOT%{jredir}/lib/%{jre_arch}/libjvm.so
 
 %{__rm} $RPM_BUILD_ROOT%{dstdir}/{,jre/}{ASSEMBLY_EXCEPTION,LICENSE,THIRD_PARTY_README}
+
+%{?with_cacerts:install cacerts $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/security}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
