@@ -19,21 +19,21 @@
 Summary:	OpenJDK and GNU Classpath code
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath
 Name:		icedtea6
-Version:	1.11.4
+Version:	1.12.4
 Release:	1
 License:	GPL v2
 Group:		Development/Languages/Java
 Source0:	http://icedtea.classpath.org/download/source/%{name}-%{version}.tar.gz
-# Source0-md5:	a5a3a5aeaba0ddf4c9fdf8e899bf77c2
+# Source0-md5:	85bfc656c20fb762b72b71d3492a326c
 # following sources should match those in Makefile.am
-Source1:	http://download.java.net/openjdk/jdk6/promoted/b24/openjdk-6-src-b24-14_nov_2011.tar.gz
-# Source1-md5:	0eabdd360169144336e50081b8d01001
+Source1:	http://download.java.net/openjdk/jdk6/promoted/b24/openjdk-6-src-b27-26_oct_2012.tar.gz
+# Source1-md5:	3a0963158e07c8829c8bd31a698bd23d
 Source2:	http://icedtea.classpath.org/download/drops/jdk6-jaxws2_1_6-2011_06_13.zip
 # Source2-md5:	8fd91b09b643a19a912b8a75e7a7a9d5
 Source3:	http://icedtea.classpath.org/download/drops/jdk6-jaf-b20.zip
 # Source3-md5:	bc95c133620bd68c161cac9891592901
-Source4:	http://icedtea.classpath.org/download/drops/jaxp144_03.zip
-# Source4-md5:	9eea471ad474040265c688858fcf09aa
+Source4:	http://icedtea.classpath.org/download/drops/jaxp144_04.zip
+# Source4-md5:	0ace787aa12177d201947e8ba0ba9bdd
 Patch0:		%{name}-i486.patch
 Patch1:		%{name}-libpath.patch
 URL:		http://icedtea.classpath.org/wiki/Main_Page
