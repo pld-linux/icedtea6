@@ -26,7 +26,7 @@ Group:		Development/Languages/Java
 Source0:	http://icedtea.classpath.org/download/source/%{name}-%{version}.tar.gz
 # Source0-md5:	85bfc656c20fb762b72b71d3492a326c
 # following sources should match those in Makefile.am
-Source1:	http://download.java.net/openjdk/jdk6/promoted/b24/openjdk-6-src-b27-26_oct_2012.tar.gz
+Source1:	http://download.java.net/openjdk/jdk6/promoted/b27/openjdk-6-src-b27-26_oct_2012.tar.gz
 # Source1-md5:	3a0963158e07c8829c8bd31a698bd23d
 Source2:	http://icedtea.classpath.org/download/drops/jdk6-jaxws2_1_6-2011_06_13.zip
 # Source2-md5:	8fd91b09b643a19a912b8a75e7a7a9d5
