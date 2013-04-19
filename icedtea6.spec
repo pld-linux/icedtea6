@@ -693,6 +693,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{jredir}/lib/%{jre_arch}/server
 %{jredir}/lib/%{jre_arch}/server/Xusage.txt
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/server/*.so
+%{jredir}/lib/%{jre_arch}/server/classes.jsa
 %{jredir}/lib/%{jre_arch}/jvm.cfg
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libattach.so
 %attr(755,root,root) %{jredir}/lib/%{jre_arch}/libawt.so
