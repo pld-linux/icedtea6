@@ -183,6 +183,8 @@ Summary:	OpenJDK and GNU Classpath code - runtime environment
 Summary(pl.UTF-8):	Kod OpenJDK i GNU Classpath - środowisko uruchomieniowe
 Group:		Development/Languages/Java
 Requires:	%{name}-jre-base = %{version}-%{release}
+# Require zoneinfo data provided by java-tzdata subpackage.
+Requires:	java-tzdata
 Provides:	java
 Provides:	java(ClassDataVersion) = %{_classdataversion}
 Provides:	java(jaas) = %{version}
@@ -484,6 +486,9 @@ done
 # some apps (like opera) looks for it in different place
 ln -s server/libjvm.so $RPM_BUILD_ROOT%{jredir}/lib/%{jre_arch}/libjvm.so
 
+# uses /usr/share/javazi if present and we require that package
+%{__rm} -r $RPM_BUILD_ROOT%{jredir}/lib/zi
+
 %{__rm} $RPM_BUILD_ROOT%{dstdir}/{,jre/}{ASSEMBLY_EXCEPTION,LICENSE,THIRD_PARTY_README}
 
 %{?with_cacerts:install cacerts $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/security}
@@ -744,8 +749,7 @@ rm -rf $RPM_BUILD_ROOT
 %{jredir}/lib/images
 %{jredir}/lib/management
 %{jredir}/lib/security
-%{jredir}/lib/zi
-#
+
 %if %{with webstart}
 %{jredir}/lib/about.jar
 %{jredir}/lib/about.jnlp
