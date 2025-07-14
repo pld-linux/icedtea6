@@ -362,7 +362,7 @@ Przykłady dla OpenJDK.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P0 -p1
 
 # patches to applied to the extracted sources
 install -d pld-patches
